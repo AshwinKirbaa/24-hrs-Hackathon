@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="assets/css/design-system.css" />
   <link rel="stylesheet" href="assets/css/overlays.css" />
 </head>
+
 <body>
   <div class="auth">
     <!-- Aside -->
@@ -22,7 +24,8 @@
           </div>
         </div>
         <div class="mt-6 quote">
-          "Every answer tells a story — <span>TwinEval AI</span> helps you see the concepts you mastered and the ones still worth revisiting."
+          "Every answer tells a story — <span>TwinEval AI</span> helps you see the concepts you mastered and the ones
+          still worth revisiting."
         </div>
       </div>
       <div class="row gap-2 text-sm text-muted" style="position:relative;z-index:1">
@@ -33,7 +36,7 @@
 
     <!-- Form -->
     <section class="auth-form">
-      <form class="auth-card anim-fadeup" onsubmit="event.preventDefault(); TwinEval.runAuthFlow(['Authenticating...','Initializing TwinEval AI...','Loading Student Workspace...'], 'student-dashboard.html');">
+      <form class="auth-card anim-fadeup" id="loginForm">
         <div>
           <h1 class="auth-title">Welcome back, student</h1>
           <p class="auth-sub mt-2">Sign in to review evaluations and continue learning.</p>
@@ -69,5 +72,52 @@
     </section>
   </div>
   <script src="assets/js/app.js"></script>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("http://localhost:5001/api/auth/student/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email,
+            password
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+
+          localStorage.setItem("token", data.data.token);
+          localStorage.setItem("user", JSON.stringify(data.data));
+
+          TwinEval.runAuthFlow(
+            [
+              "Authenticating...",
+              "Initializing TwinEval AI...",
+              "Loading Student Workspace..."
+            ],
+            "student-dashboard.html"
+          );
+
+        } else {
+          alert(data.message);
+        }
+
+      } catch (err) {
+        console.error(err);
+        alert("Unable to connect to server.");
+      }
+    });
+  </script>
 </body>
+
 </html>
