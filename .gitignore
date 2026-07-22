@@ -1,0 +1,20 @@
+# Python virtual environments
+.venv/
+.venv312/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# IDE
+.idea/
+
+# Build/output
+output/
+uploads/
+
+# OS files
+.DS_Store
+Thumbs.db
