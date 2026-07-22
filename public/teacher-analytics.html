@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Class Analytics · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body class="theme-teacher">
+  <div id="shell" data-role="teacher" data-active="analytics" data-title="Class Analytics"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Class analytics</h1>
+        <div class="sub">Distribution, mastery, misconceptions and Bloom's coverage across your class.</div>
+      </div>
+      <div class="row gap-2">
+        <select class="select" style="max-width:220px"><option>All assignments</option></select>
+        <button class="btn btn-ghost">Export CSV</button>
+      </div>
+    </div>
+
+    <section class="grid grid-4">
+      <div class="card"><div class="card-sub">Students evaluated</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">No data</div></div>
+      <div class="card"><div class="card-sub">Class average</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">No data</div></div>
+      <div class="card"><div class="card-sub">Median score</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">No data</div></div>
+      <div class="card"><div class="card-sub">Weakest criterion</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">No data</div></div>
+    </section>
+
+    <section class="grid grid-2">
+      <div class="card">
+        <h2 class="h3">Score distribution</h2>
+        <div class="text-sm text-muted">Histogram of class scores.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">📊</div>
+          <h3>No class data yet.</h3>
+          <p>Distribution appears once your first batch of evaluations is complete.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="h3">Bloom's coverage — class</h2>
+        <div class="text-sm text-muted">Cognitive level distribution across submissions.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">🌱</div>
+          <h3>No Bloom data yet.</h3>
+          <p>Available after evaluations are processed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="h3">Common misconceptions</h2>
+      <div class="text-sm text-muted">Concepts most students got wrong — auto-clustered.</div>
+      <div class="empty mt-3">
+        <div class="empty-illustration">💡</div>
+        <h3>No misconceptions surfaced yet.</h3>
+        <p>Clusters will appear as more submissions are evaluated.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

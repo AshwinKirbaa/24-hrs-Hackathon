@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Sign In · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body>
+  <div class="auth">
+    <!-- Aside -->
+    <aside class="auth-aside">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div style="position:relative;z-index:1">
+        <div class="brand">
+          <div class="brand-mark">T</div>
+          <div>
+            <div class="brand-name">TwinEval AI</div>
+            <div class="brand-sub">Student Workspace</div>
+          </div>
+        </div>
+        <div class="mt-6 quote">
+          "Every answer tells a story — <span>TwinEval AI</span> helps you see the concepts you mastered and the ones still worth revisiting."
+        </div>
+      </div>
+      <div class="row gap-2 text-sm text-muted" style="position:relative;z-index:1">
+        <span class="badge"><span class="dot" style="color:#10b981"></span> End-to-end encrypted</span>
+        <span class="badge">SOC-ready</span>
+      </div>
+    </aside>
+
+    <!-- Form -->
+    <section class="auth-form">
+      <form class="auth-card anim-fadeup" onsubmit="event.preventDefault(); TwinEval.runAuthFlow(['Authenticating...','Initializing TwinEval AI...','Loading Student Workspace...'], 'student-dashboard.html');">
+        <div>
+          <h1 class="auth-title">Welcome back, student</h1>
+          <p class="auth-sub mt-2">Sign in to review evaluations and continue learning.</p>
+        </div>
+
+        <div class="field">
+          <label class="label" for="email">Email address</label>
+          <input class="input" id="email" type="email" placeholder="you@college.edu" required />
+        </div>
+        <div class="field">
+          <label class="label" for="password">Password</label>
+          <input class="input" id="password" type="password" placeholder="••••••••" required />
+        </div>
+
+        <div class="row between">
+          <label class="checkbox"><input type="checkbox" checked /> Remember me</label>
+          <a href="#" class="text-sm">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Sign in</button>
+
+        <div class="divider">or</div>
+
+        <a href="student-signup.html" class="btn btn-ghost btn-block">Create Account</a>
+
+        <p class="text-sm text-muted" style="text-align:center;margin:0">
+          Are you faculty? <a href="teacher-login.html">Sign in as Teacher</a>
+        </p>
+        <p class="text-sm text-muted" style="text-align:center;margin:0">
+          <a href="landing.html">← Back to home</a>
+        </p>
+      </form>
+    </section>
+  </div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

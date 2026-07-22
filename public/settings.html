@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settings · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body>
+  <div id="shell" data-role="student" data-active="settings" data-title="Settings"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Settings</h1>
+        <div class="sub">Preferences, notifications and privacy controls.</div>
+      </div>
+      <button class="btn btn-primary">Save changes</button>
+    </div>
+
+    <section class="grid grid-2">
+      <div class="card">
+        <h2 class="h3">Notifications</h2>
+        <div class="text-sm text-muted">Choose how TwinEval AI reaches you.</div>
+        <div class="stack gap-2 mt-3">
+          <label class="checkbox"><input type="checkbox" checked /> Evaluation completed</label>
+          <label class="checkbox"><input type="checkbox" checked /> New feedback available</label>
+          <label class="checkbox"><input type="checkbox" /> Weekly performance digest</label>
+          <label class="checkbox"><input type="checkbox" /> Product updates</label>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="h3">Appearance</h2>
+        <div class="text-sm text-muted">Theme and density.</div>
+        <div class="field mt-3">
+          <label class="label">Theme</label>
+          <select class="select"><option>System</option><option>Dark (default)</option><option>Light</option></select>
+        </div>
+        <div class="field mt-3">
+          <label class="label">Density</label>
+          <select class="select"><option>Comfortable</option><option>Compact</option></select>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="h3">Privacy</h2>
+        <div class="text-sm text-muted">Control how your data is used.</div>
+        <div class="stack gap-2 mt-3">
+          <label class="checkbox"><input type="checkbox" checked /> Anonymised model improvement</label>
+          <label class="checkbox"><input type="checkbox" /> Share progress with teachers</label>
+        </div>
+        <button class="btn btn-danger mt-4">Delete my account</button>
+      </div>
+      <div class="card">
+        <h2 class="h3">Session</h2>
+        <div class="text-sm text-muted">Sign out of TwinEval AI on this device.</div>
+        <a href="landing.html" class="btn btn-ghost btn-block mt-4">Sign out</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

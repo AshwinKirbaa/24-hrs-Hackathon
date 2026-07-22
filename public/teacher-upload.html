@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upload &amp; Rubric · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+  <style>
+    .dropzone { border: 2px dashed var(--hairline-strong); border-radius: var(--r-xl); padding: 40px; text-align: center; background: var(--surface-glass); }
+    .criterion { display: grid; grid-template-columns: 1.4fr 1fr 100px auto; gap: 10px; align-items:end; }
+    @media (max-width: 720px) { .criterion { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="theme-teacher">
+  <div id="shell" data-role="teacher" data-active="upload" data-title="Upload & Rubric"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Create an assignment</h1>
+        <div class="sub">Define a rubric, attach a model answer, and configure Bloom's targets.</div>
+      </div>
+      <a href="teacher-dashboard.html" class="btn btn-ghost">Cancel</a>
+    </div>
+
+    <section class="grid" style="grid-template-columns: 1.3fr 1fr; gap: var(--s-3);">
+      <div class="card">
+        <h2 class="h3">Assignment details</h2>
+        <div class="grid grid-2 mt-3">
+          <div class="field"><label class="label">Assignment title</label><input class="input" placeholder="e.g. Mid-term 2 — DS" /></div>
+          <div class="field"><label class="label">Subject</label><input class="input" placeholder="e.g. Data Structures" /></div>
+          <div class="field"><label class="label">Course code</label><input class="input" placeholder="e.g. CS201" /></div>
+          <div class="field"><label class="label">Due date</label><input class="input" type="date" /></div>
+        </div>
+
+        <h2 class="h3 mt-5">Rubric criteria</h2>
+        <div class="text-sm text-muted">Add each criterion and its weight. Total must equal 100.</div>
+        <div class="stack gap-2 mt-3" id="rubric">
+          <div class="criterion">
+            <div class="field"><label class="label">Criterion</label><input class="input" placeholder="e.g. Correctness" /></div>
+            <div class="field"><label class="label">Description</label><input class="input" placeholder="What is being assessed" /></div>
+            <div class="field"><label class="label">Weight (%)</label><input class="input" type="number" min="0" max="100" placeholder="0" /></div>
+            <button class="btn btn-ghost btn-sm" onclick="event.preventDefault(); this.closest('.criterion').remove();">Remove</button>
+          </div>
+        </div>
+        <button class="btn btn-ghost mt-3" onclick="addRow(event)">+ Add criterion</button>
+      </div>
+
+      <div class="card">
+        <h2 class="h3">Model answer</h2>
+        <div class="text-sm text-muted">Upload or paste a model answer for calibration.</div>
+        <label class="dropzone mt-3">
+          <input type="file" hidden />
+          <div class="empty-illustration" style="margin: 0 auto 8px">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M6 10l6-6 6 6"/><path d="M4 20h16"/></svg>
+          </div>
+          <div>Drop model answer PDF or click to upload</div>
+        </label>
+        <div class="field mt-3">
+          <label class="label">Or paste model answer</label>
+          <textarea class="textarea" placeholder="Paste model answer here…"></textarea>
+        </div>
+
+        <h2 class="h3 mt-5">Bloom's targets</h2>
+        <div class="stack gap-2 mt-3">
+          <label class="checkbox"><input type="checkbox" checked /> Remember</label>
+          <label class="checkbox"><input type="checkbox" checked /> Understand</label>
+          <label class="checkbox"><input type="checkbox" checked /> Apply</label>
+          <label class="checkbox"><input type="checkbox" /> Analyse</label>
+          <label class="checkbox"><input type="checkbox" /> Evaluate</label>
+          <label class="checkbox"><input type="checkbox" /> Create</label>
+        </div>
+
+        <a href="teacher-review.html" class="btn btn-primary btn-block mt-5">Publish assignment</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    function addRow(e){
+      e.preventDefault();
+      var host = document.getElementById("rubric");
+      var d = document.createElement("div");
+      d.className = "criterion";
+      d.innerHTML =
+        '<div class="field"><label class="label">Criterion</label><input class="input" placeholder="e.g. Clarity" /></div>' +
+        '<div class="field"><label class="label">Description</label><input class="input" placeholder="What is being assessed" /></div>' +
+        '<div class="field"><label class="label">Weight (%)</label><input class="input" type="number" min="0" max="100" placeholder="0" /></div>' +
+        '<button class="btn btn-ghost btn-sm" onclick="event.preventDefault(); this.closest(&quot;.criterion&quot;).remove();">Remove</button>';
+      host.appendChild(d);
+    }
+  </script>
+</body>
+</html>

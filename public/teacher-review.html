@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Review Queue · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+  <style>
+    .filter-bar { display:flex; gap: 10px; flex-wrap: wrap; align-items:center; }
+  </style>
+</head>
+<body class="theme-teacher">
+  <div id="shell" data-role="teacher" data-active="review" data-title="Review Queue"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Review queue</h1>
+        <div class="sub">Moderate AI-graded submissions. Approve, adjust or send back.</div>
+      </div>
+      <div class="row gap-2">
+        <span class="badge">0 pending</span>
+        <span class="badge badge-emerald">0 approved</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="filter-bar mb-3">
+        <div class="search" style="flex:1; max-width:none">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input placeholder="Search by student, roll number, assignment…" />
+        </div>
+        <select class="select" style="max-width:200px"><option>All assignments</option></select>
+        <select class="select" style="max-width:180px"><option>All statuses</option><option>Pending</option><option>Approved</option><option>Returned</option></select>
+      </div>
+
+      <div class="empty">
+        <div class="empty-illustration">
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h3>No submissions in the review queue.</h3>
+        <p>Once students submit, AI-graded evaluations will appear here with rubric-aligned scores, evidence snippets and Bloom's classification for your moderation.</p>
+        <a href="teacher-upload.html" class="btn btn-primary mt-3">Create an assignment</a>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h2 class="h3">Moderation workspace</h2>
+        <div class="text-sm text-muted">Side-by-side AI score vs. your override.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">⚖️</div>
+          <h3>Select a submission to begin moderation.</h3>
+          <p>You'll be able to compare AI-suggested marks with your own and add rationale.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="h3">Audit trail</h2>
+        <div class="text-sm text-muted">Every override is logged for transparency.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">🧾</div>
+          <h3>No audit events yet.</h3>
+          <p>Moderation actions will appear here with timestamps and reasons.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

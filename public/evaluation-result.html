@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Evaluation Result · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body>
+  <div id="shell" data-role="student" data-active="result" data-title="Evaluation Result"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Evaluation result</h1>
+        <div class="sub">Your latest evaluation and its detailed breakdown will appear here.</div>
+      </div>
+      <div class="row gap-2">
+        <a href="upload.html" class="btn btn-ghost">New submission</a>
+        <a href="feedback.html" class="btn btn-primary">View AI feedback</a>
+      </div>
+    </div>
+
+    <section class="grid grid-4">
+      <div class="card"><div class="card-sub">Overall score</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">Awaiting evaluation</div></div>
+      <div class="card"><div class="card-sub">Rubric coverage</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">0 of 0 criteria</div></div>
+      <div class="card"><div class="card-sub">Bloom's level</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">Not classified yet</div></div>
+      <div class="card"><div class="card-sub">Concepts detected</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">Will appear post-analysis</div></div>
+    </section>
+
+    <section class="grid" style="grid-template-columns: 1.4fr 1fr; gap: var(--s-3);">
+      <div class="card">
+        <h2 class="h3">Question-by-question breakdown</h2>
+        <div class="text-sm text-muted">A per-question rubric breakdown with evidence.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          </div>
+          <h3>No evaluation results yet.</h3>
+          <p>Once your answer sheet is processed, each question will appear here with rubric-aligned scoring, evidence snippets and Bloom's classification.</p>
+          <a href="upload.html" class="btn btn-primary mt-3">Upload an answer sheet</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="h3">Rubric alignment</h2>
+        <div class="text-sm text-muted">Criteria and weightage from your teacher's rubric.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">📐</div>
+          <h3>No rubric attached yet.</h3>
+          <p>The active rubric will appear once your submission is linked to an assignment.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TwinEval AI — AI Powered Answer Evaluation Platform</title>
+  <meta name="description" content="TwinEval AI evaluates handwritten and typed answer sheets using OCR, semantic analysis, rubric scoring and Bloom's taxonomy — with instant feedback and analytics." />
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+  <link rel="stylesheet" href="assets/css/landing.css" />
+</head>
+<body class="landing">
+  <!-- Ambient background -->
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <!-- Top nav -->
+  <header class="landing-nav">
+    <div class="brand">
+      <div class="brand-mark">T</div>
+      <div>
+        <div class="brand-name">TwinEval AI</div>
+        <div class="brand-sub">Evaluation Intelligence</div>
+      </div>
+    </div>
+    <div class="row gap-2">
+      <a class="badge" href="#workflow">How it works</a>
+      <a class="badge" href="#features">Platform</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="eyebrow anim-fadein"><span class="dot" style="color:#22d3ee"></span> AI Powered Answer Evaluation Platform</span>
+    <h1 class="anim-fadeup delay-1">Grade smarter.<br/><span class="accent">Understand deeper.</span></h1>
+    <p class="lead anim-fadeup delay-2">
+      TwinEval AI evaluates answer sheets end-to-end — from handwritten OCR to semantic
+      understanding, rubric alignment and Bloom's taxonomy — then delivers actionable feedback
+      and analytics for students and faculty.
+    </p>
+
+    <div class="hero-cta anim-fadeup delay-3">
+      <a href="student-login.html" class="btn btn-primary btn-lg">
+        Continue as Student
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="teacher-login.html" class="btn btn-ghost btn-lg">
+        Continue as Teacher
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- Neural / orb visual -->
+    <div class="hero-visual anim-scalein delay-4" aria-hidden="true">
+      <div class="ring"></div>
+      <div class="ring r2"></div>
+      <div class="orb"></div>
+      <svg viewBox="0 0 800 450" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="lg" x1="0" x2="1">
+            <stop offset="0" stop-color="#22d3ee" stop-opacity=".6"/>
+            <stop offset="1" stop-color="#4a7ef3" stop-opacity=".1"/>
+          </linearGradient>
+        </defs>
+        <g stroke="url(#lg)" stroke-width="1" fill="none" opacity=".7">
+          <path d="M60 90 L400 225 L740 90"/>
+          <path d="M60 360 L400 225 L740 360"/>
+          <path d="M60 90 L740 360"/>
+          <path d="M60 360 L740 90"/>
+          <path d="M60 225 L740 225"/>
+        </g>
+        <g fill="#8fb4ff">
+          <circle cx="60" cy="90" r="3"/><circle cx="60" cy="225" r="3"/><circle cx="60" cy="360" r="3"/>
+          <circle cx="740" cy="90" r="3"/><circle cx="740" cy="225" r="3"/><circle cx="740" cy="360" r="3"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section class="workflow" id="workflow">
+    <h2 data-reveal>The TwinEval evaluation pipeline</h2>
+    <p class="sub" data-reveal>Every answer sheet flows through seven intelligent stages — fully explainable, fully auditable.</p>
+    <div class="flow">
+      <div class="flow-node" data-reveal><div class="num">01</div><div class="ico">📝</div><div class="title">Answer Sheet</div></div>
+      <div class="flow-node" data-reveal><div class="num">02</div><div class="ico">🔍</div><div class="title">OCR</div></div>
+      <div class="flow-node" data-reveal><div class="num">03</div><div class="ico">🧠</div><div class="title">Semantic Analysis</div></div>
+      <div class="flow-node" data-reveal><div class="num">04</div><div class="ico">📐</div><div class="title">Rubric Evaluation</div></div>
+      <div class="flow-node" data-reveal><div class="num">05</div><div class="ico">🌱</div><div class="title">Bloom Taxonomy</div></div>
+      <div class="flow-node" data-reveal><div class="num">06</div><div class="ico">💬</div><div class="title">Feedback</div></div>
+      <div class="flow-node" data-reveal><div class="num">07</div><div class="ico">📊</div><div class="title">Analytics</div></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="features-grid">
+      <div class="card" data-reveal>
+        <h3 class="card-title">For Students</h3>
+        <p class="card-sub">Understand exactly why a mark was awarded, where you lost points, and what to improve — with concept-level feedback.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3 class="card-title">For Faculty</h3>
+        <p class="card-sub">Evaluate a class in minutes. Configure rubrics, review AI suggestions, and export moderated scores with full audit trails.</p>
+      </div>
+      <div class="card" data-reveal>
+        <h3 class="card-title">Explainable by design</h3>
+        <p class="card-sub">Every score is traceable to the rubric criterion, Bloom's level and evidence extracted from the answer.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="landing-footer">
+    <div>© <span id="yr"></span> TwinEval AI · Built for the AI Hackathon</div>
+    <div class="row gap-2">
+      <span class="badge"><span class="dot" style="color:#10b981"></span> Systems operational</span>
+    </div>
+  </footer>
+
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+  <script src="assets/js/particles.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

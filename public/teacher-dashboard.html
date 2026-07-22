@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Faculty Dashboard · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body class="theme-teacher">
+  <div id="shell" data-role="teacher" data-active="dashboard" data-title="Faculty Dashboard"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Faculty workspace</h1>
+        <div class="sub">Configure rubrics, evaluate submissions and moderate AI scoring at scale.</div>
+      </div>
+      <div class="row gap-2">
+        <a href="teacher-upload.html" class="btn btn-ghost">Upload rubric</a>
+        <a href="teacher-review.html" class="btn btn-primary">Open review queue</a>
+      </div>
+    </div>
+
+    <section class="grid grid-4">
+      <div class="card"><div class="card-sub">Active assignments</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">No assignments configured</div></div>
+      <div class="card"><div class="card-sub">Submissions pending</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">Nothing to review</div></div>
+      <div class="card"><div class="card-sub">Class average</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">Available after evaluations</div></div>
+      <div class="card"><div class="card-sub">AI–Faculty agreement</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">Calibrated on first review</div></div>
+    </section>
+
+    <section class="grid" style="grid-template-columns: 1.5fr 1fr; gap: var(--s-3);">
+      <div class="card">
+        <div class="row between mb-3">
+          <div><h2 class="h3">Review queue</h2><div class="text-sm text-muted">Submissions awaiting moderation.</div></div>
+          <a class="btn btn-sm btn-ghost" href="teacher-review.html">Open queue</a>
+        </div>
+        <div class="empty">
+          <div class="empty-illustration">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h3>No submissions in the review queue.</h3>
+          <p>When students submit, AI-graded results land here for your moderation.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="h3">Assignments</h2>
+        <div class="text-sm text-muted">Rubrics, model answers and deadlines.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">📐</div>
+          <h3>No assignments yet.</h3>
+          <p>Create an assignment to start receiving submissions.</p>
+          <a href="teacher-upload.html" class="btn btn-primary mt-3">Create assignment</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="row between mb-3">
+        <div><h2 class="h3">Class analytics</h2><div class="text-sm text-muted">Distribution, mastery and Bloom's coverage across your class.</div></div>
+        <a class="btn btn-sm btn-ghost" href="teacher-analytics.html">Open analytics</a>
+      </div>
+      <div class="empty">
+        <div class="empty-illustration">📊</div>
+        <h3>Class analytics will appear after your first batch of evaluations.</h3>
+        <p>We'll surface outliers, common misconceptions and rubric criteria that need attention.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Processing · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+  <style>
+    .pipeline { display: flex; flex-direction: column; gap: 12px; }
+    .pipe {
+      display: grid; grid-template-columns: 44px 1fr auto; align-items:center; gap: 16px;
+      padding: 16px; border-radius: var(--r-md);
+      background: var(--surface-glass); border: 1px solid var(--hairline);
+    }
+    .pipe.active { border-color: var(--brand-400); box-shadow: 0 0 0 4px rgba(74,126,243,0.12); }
+    .pipe .n { width:36px; height:36px; border-radius:10px; background: var(--grad-primary-soft); color: var(--brand-200); display:grid; place-items:center; font-weight:600; }
+    .pipe.done { opacity: .75; }
+    .pipe.done .n { background: rgba(16,185,129,0.18); color:#6ee7b7; }
+    .pipe .status { font-size: 12px; color: var(--text-muted); }
+    .spin { width:16px; height:16px; border-radius:50%; border: 2px solid rgba(255,255,255,0.15); border-top-color: var(--brand-400); animation: spin 800ms linear infinite; }
+  </style>
+</head>
+<body>
+  <div id="shell" data-role="student" data-active="processing" data-title="AI Processing"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">TwinEval AI is thinking…</h1>
+        <div class="sub">Running semantic understanding across your answer sheet.</div>
+      </div>
+      <span class="badge badge-brand"><span class="dot" style="color:#22d3ee"></span> Live</span>
+    </div>
+
+    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: var(--s-3);">
+      <div class="card">
+        <h2 class="h3">Pipeline</h2>
+        <div class="text-sm text-muted mb-3">Each stage is fully explainable and auditable.</div>
+        <div class="pipeline" id="pipeline">
+          <div class="pipe" data-i="0"><div class="n">01</div><div><div>OCR — text extraction</div><div class="status">Queued</div></div><div class="spin" hidden></div></div>
+          <div class="pipe" data-i="1"><div class="n">02</div><div><div>Semantic analysis</div><div class="status">Queued</div></div><div class="spin" hidden></div></div>
+          <div class="pipe" data-i="2"><div class="n">03</div><div><div>Rubric evaluation</div><div class="status">Queued</div></div><div class="spin" hidden></div></div>
+          <div class="pipe" data-i="3"><div class="n">04</div><div><div>Bloom's taxonomy mapping</div><div class="status">Queued</div></div><div class="spin" hidden></div></div>
+          <div class="pipe" data-i="4"><div class="n">05</div><div><div>Feedback generation</div><div class="status">Queued</div></div><div class="spin" hidden></div></div>
+        </div>
+
+        <div class="progress mt-4"><span id="bar" style="width:5%"></span></div>
+        <div class="row between mt-2">
+          <div class="text-sm text-muted" id="stageLabel">Preparing…</div>
+          <a class="btn btn-sm btn-ghost" href="student-dashboard.html">Run in background</a>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <div style="position:relative; width:220px; height:220px;">
+          <div style="position:absolute; inset:0; border-radius:50%; background: radial-gradient(circle at 35% 35%, #6f9bf7, #1f4bd1 60%, #0a1230); box-shadow: 0 0 60px rgba(74,126,243,0.55); animation: floatY 5s ease-in-out infinite;"></div>
+          <div style="position:absolute; inset:-14px; border-radius:50%; border:1px dashed rgba(255,255,255,0.15); animation: spin 12s linear infinite;"></div>
+          <div style="position:absolute; inset:-28px; border-radius:50%; border:1px dashed rgba(34,211,238,0.15); animation: spin 20s linear infinite reverse;"></div>
+        </div>
+        <div class="mt-4 h3">Neural evaluation in progress</div>
+        <div class="text-sm text-muted mt-2" style="text-align:center;max-width:320px">
+          Processing typically completes in under a minute. You can leave this page — we'll notify you when it's ready.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    (function(){
+      var pipes = document.querySelectorAll("#pipeline .pipe");
+      var bar = document.getElementById("bar");
+      var label = document.getElementById("stageLabel");
+      var i = 0;
+      function tick(){
+        if (i > 0) { pipes[i-1].classList.remove("active"); pipes[i-1].classList.add("done"); pipes[i-1].querySelector(".spin").hidden = true; pipes[i-1].querySelector(".status").textContent = "Completed"; }
+        if (i >= pipes.length) {
+          bar.style.width = "100%"; label.textContent = "Finalising…";
+          setTimeout(function(){ window.location.href = "evaluation-result.html"; }, 900);
+          return;
+        }
+        pipes[i].classList.add("active");
+        pipes[i].querySelector(".spin").hidden = false;
+        pipes[i].querySelector(".status").textContent = "Running…";
+        label.textContent = pipes[i].querySelector("div > div").textContent;
+        bar.style.width = ((i+1)/pipes.length * 100) + "%";
+        i++;
+        setTimeout(tick, 1400);
+      }
+      setTimeout(tick, 600);
+    })();
+  </script>
+</body>
+</html>

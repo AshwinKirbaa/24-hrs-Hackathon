@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Feedback · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body>
+  <div id="shell" data-role="student" data-active="feedback" data-title="AI Feedback"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">AI feedback</h1>
+        <div class="sub">Personalised, concept-level guidance on your answers.</div>
+      </div>
+      <a class="btn btn-ghost" href="evaluation-result.html">Back to result</a>
+    </div>
+
+    <section class="grid grid-3">
+      <div class="card">
+        <h3 class="card-title">Strengths</h3>
+        <div class="empty mt-3">
+          <div class="empty-illustration" style="background: rgba(16,185,129,0.15); color:#6ee7b7">★</div>
+          <h3>No strengths identified yet.</h3>
+          <p>Your strongest concepts will surface here after evaluation.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Areas to improve</h3>
+        <div class="empty mt-3">
+          <div class="empty-illustration" style="background: rgba(245,158,11,0.15); color:#fcd34d">!</div>
+          <h3>Nothing to improve yet.</h3>
+          <p>We'll highlight weak concepts and misconceptions here.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Suggested next steps</h3>
+        <div class="empty mt-3">
+          <div class="empty-illustration">→</div>
+          <h3>No suggestions yet.</h3>
+          <p>Actionable, resource-linked recommendations appear post-evaluation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="row between mb-3">
+        <div>
+          <h2 class="h3">Concept map</h2>
+          <div class="text-sm text-muted">A visual map of concepts referenced in your answers.</div>
+        </div>
+        <span class="badge">Awaiting data</span>
+      </div>
+      <div class="empty">
+        <div class="empty-illustration">🧠</div>
+        <h3>Your concept map will render here.</h3>
+        <p>Concepts, prerequisites, and mastery levels appear after your first evaluation.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

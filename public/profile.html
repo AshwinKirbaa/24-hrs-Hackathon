@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profile · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body>
+  <div id="shell" data-role="student" data-active="profile" data-title="Profile"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Your profile</h1>
+        <div class="sub">Keep your workspace details up to date.</div>
+      </div>
+      <button class="btn btn-primary">Save changes</button>
+    </div>
+
+    <section class="grid" style="grid-template-columns: 320px 1fr; gap: var(--s-3);">
+      <div class="card" style="text-align:center">
+        <div class="avatar" style="width:96px;height:96px;font-size:28px;margin:0 auto">SA</div>
+        <div class="h3 mt-3">—</div>
+        <div class="text-sm text-muted">No profile details added yet</div>
+        <button class="btn btn-ghost btn-block mt-4">Change avatar</button>
+      </div>
+
+      <div class="card">
+        <h2 class="h3">Personal information</h2>
+        <div class="grid grid-2 mt-3">
+          <div class="field"><label class="label">Full name</label><input class="input" placeholder="Add your name" /></div>
+          <div class="field"><label class="label">Email</label><input class="input" type="email" placeholder="Add email" /></div>
+          <div class="field"><label class="label">College</label><input class="input" placeholder="Add college" /></div>
+          <div class="field"><label class="label">Department</label><input class="input" placeholder="Add department" /></div>
+          <div class="field"><label class="label">Year</label>
+            <select class="select"><option>Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+          </div>
+          <div class="field"><label class="label">Roll number</label><input class="input" placeholder="Add roll number" /></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="h3">Learning summary</h2>
+      <div class="empty mt-3">
+        <div class="empty-illustration">📈</div>
+        <h3>No learning history yet.</h3>
+        <p>Once you complete evaluations, your growth summary appears here.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Faculty Sign In · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+  <style>
+    body.theme-teacher .auth-aside {
+      background:
+        radial-gradient(600px 400px at 20% 20%, rgba(26,59,168,0.5), transparent 60%),
+        radial-gradient(500px 400px at 90% 80%, rgba(15,31,87,0.6), transparent 60%),
+        linear-gradient(160deg, #050814, #020409 70%);
+    }
+  </style>
+</head>
+<body class="theme-teacher">
+  <div class="auth">
+    <aside class="auth-aside">
+      <div class="blob b1" style="background:#1a3ba8"></div>
+      <div class="blob b2" style="background:#0f1f57"></div>
+      <div style="position:relative;z-index:1">
+        <div class="brand">
+          <div class="brand-mark">T</div>
+          <div>
+            <div class="brand-name">TwinEval AI</div>
+            <div class="brand-sub">Faculty Workspace</div>
+          </div>
+        </div>
+        <div class="mt-6 quote">
+          A rigorous, auditable evaluation workflow — designed for faculty who <span>value transparency</span> as much as speed.
+        </div>
+      </div>
+      <div class="row gap-2 text-sm text-muted" style="position:relative;z-index:1">
+        <span class="badge">Institution SSO ready</span>
+        <span class="badge">Audit trails</span>
+      </div>
+    </aside>
+
+    <section class="auth-form">
+      <form class="auth-card anim-fadeup" onsubmit="event.preventDefault(); TwinEval.runAuthFlow(['Authenticating Faculty...','Loading Evaluation Workspace...','Preparing Teacher Dashboard...'], 'teacher-dashboard.html');">
+        <div>
+          <h1 class="auth-title">Faculty sign in</h1>
+          <p class="auth-sub mt-2">Access your evaluation workspace and review queues.</p>
+        </div>
+
+        <div class="field">
+          <label class="label" for="email">Institutional email</label>
+          <input class="input" id="email" type="email" placeholder="faculty@college.edu" required />
+        </div>
+        <div class="field">
+          <label class="label" for="password">Password</label>
+          <input class="input" id="password" type="password" placeholder="••••••••" required />
+        </div>
+
+        <div class="row between">
+          <label class="checkbox"><input type="checkbox" /> Remember me</label>
+          <a href="#" class="text-sm">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Sign in</button>
+
+        <p class="text-sm text-muted" style="text-align:center;margin:0">
+          Faculty accounts are provisioned by your institution.
+        </p>
+        <p class="text-sm text-muted" style="text-align:center;margin:0">
+          <a href="landing.html">← Back to home</a>
+        </p>
+      </form>
+    </section>
+  </div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

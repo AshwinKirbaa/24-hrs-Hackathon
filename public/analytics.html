@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Analytics · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body>
+  <div id="shell" data-role="student" data-active="analytics" data-title="Analytics"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Performance analytics</h1>
+        <div class="sub">Trends, mastery and Bloom's coverage — updated after every evaluation.</div>
+      </div>
+      <div class="row gap-2">
+        <span class="badge">Last 30 days</span>
+        <a class="btn btn-ghost" href="upload.html">New submission</a>
+      </div>
+    </div>
+
+    <section class="grid grid-4">
+      <div class="card"><div class="card-sub">Evaluations</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">No data</div></div>
+      <div class="card"><div class="card-sub">Average score</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">No data</div></div>
+      <div class="card"><div class="card-sub">Best subject</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">No data</div></div>
+      <div class="card"><div class="card-sub">Growth rate</div><div class="stat mt-2">—</div><div class="text-sm text-muted mt-2">No data</div></div>
+    </section>
+
+    <section class="grid grid-2">
+      <div class="card">
+        <h2 class="h3">Score trend</h2>
+        <div class="text-sm text-muted">Your evaluation scores over time.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+          </div>
+          <h3>Your performance analytics will appear after your first evaluation.</h3>
+          <p>We'll chart your score progression, per-subject.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="h3">Bloom's coverage</h2>
+        <div class="text-sm text-muted">Cognitive levels reached across your answers.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">🌱</div>
+          <h3>Bloom analytics unlock after your first evaluation.</h3>
+          <p>Remember, understand, apply, analyse, evaluate, create.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="h3">Concept mastery</h2>
+      <div class="text-sm text-muted">Heatmap of concept mastery across topics.</div>
+      <div class="empty mt-3">
+        <div class="empty-illustration">🔥</div>
+        <h3>No concepts tracked yet.</h3>
+        <p>Concept-level mastery will fill in as more answers are evaluated.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

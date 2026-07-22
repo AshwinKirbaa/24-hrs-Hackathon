@@ -1,0 +1,155 @@
+/* Landing-specific styles for TwinEval AI intro page. */
+
+.landing {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(1000px 700px at 15% 10%, rgba(74,126,243,0.35), transparent 60%),
+    radial-gradient(900px 600px at 85% 90%, rgba(34,211,238,0.25), transparent 60%),
+    linear-gradient(180deg, #05080f 0%, #0a0e1a 60%, #05080f 100%);
+  overflow: hidden;
+}
+
+#particles {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
+
+.landing-nav {
+  position: relative; z-index: 3;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--s-3) var(--s-5);
+}
+.landing-nav .brand-name { font-size: 18px; }
+
+.hero {
+  position: relative; z-index: 2;
+  padding: var(--s-6) var(--s-3) var(--s-8);
+  max-width: 1200px; margin: 0 auto;
+  text-align: center;
+}
+.hero .eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: var(--r-pill);
+  background: var(--surface-glass-strong);
+  border: 1px solid var(--hairline-strong);
+  color: var(--brand-200); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+.hero h1 {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: var(--s-3) 0 var(--s-2);
+  background: linear-gradient(180deg, #ffffff 0%, #b8c6e8 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero h1 .accent { background: var(--grad-primary); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .lead {
+  font-size: 18px; color: var(--text-secondary);
+  max-width: 720px; margin: 0 auto;
+  line-height: 1.6;
+}
+.hero-cta {
+  margin-top: var(--s-5);
+  display: flex; justify-content: center; gap: var(--s-2); flex-wrap: wrap;
+}
+
+/* Hero visual — neural network + orb */
+.hero-visual {
+  position: relative;
+  width: min(720px, 90%);
+  margin: var(--s-6) auto 0;
+  aspect-ratio: 16 / 9;
+}
+.hero-visual .orb {
+  position: absolute; inset: 15% 25%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #6f9bf7, #1f4bd1 55%, #0a1230 100%);
+  box-shadow: 0 0 120px 20px rgba(74,126,243,0.45), inset 0 0 60px rgba(255,255,255,0.08);
+  animation: floatY 8s ease-in-out infinite;
+}
+.hero-visual .orb::after {
+  content: ""; position: absolute; inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 65% 65%, rgba(34,211,238,0.35), transparent 55%);
+  mix-blend-mode: screen;
+}
+.hero-visual svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-visual .ring {
+  position: absolute; inset: -8%;
+  border-radius: 50%;
+  border: 1px dashed rgba(255,255,255,0.12);
+  animation: spin 30s linear infinite;
+}
+.hero-visual .ring.r2 { inset: 4%; border-color: rgba(34,211,238,0.15); animation-duration: 45s; animation-direction: reverse; }
+
+/* Workflow strip */
+.workflow {
+  position: relative; z-index: 2;
+  padding: var(--s-6) var(--s-3);
+  max-width: 1200px; margin: 0 auto;
+}
+.workflow h2 {
+  text-align: center; font-size: var(--fs-h2); font-weight: 600;
+  margin: 0 0 var(--s-1); letter-spacing: -0.015em;
+}
+.workflow .sub {
+  text-align: center; color: var(--text-muted); margin: 0 auto var(--s-5);
+  max-width: 560px; font-size: var(--fs-sm);
+}
+.flow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0,1fr));
+  gap: var(--s-2);
+  align-items: stretch;
+}
+.flow-node {
+  position: relative;
+  padding: var(--s-2);
+  border-radius: var(--r-lg);
+  background: var(--grad-card), var(--surface);
+  border: 1px solid var(--hairline);
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.flow-node:hover { transform: translateY(-3px); border-color: var(--hairline-strong); }
+.flow-node .ico {
+  width: 40px; height: 40px; border-radius: 12px;
+  margin: 0 auto var(--s-1);
+  display: grid; place-items: center;
+  background: var(--grad-primary-soft);
+  color: var(--brand-200);
+  font-size: 18px;
+}
+.flow-node .title { font-size: 13px; font-weight: 600; }
+.flow-node .num { position: absolute; top: 8px; right: 10px; font-size: 10px; color: var(--text-muted); letter-spacing: 0.1em; }
+
+@media (max-width: 900px) {
+  .flow { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+
+/* Feature strip */
+.features {
+  position: relative; z-index: 2;
+  padding: var(--s-4) var(--s-3) var(--s-8);
+  max-width: 1200px; margin: 0 auto;
+}
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: var(--s-3);
+}
+@media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } }
+
+/* Footer */
+.landing-footer {
+  position: relative; z-index: 2;
+  padding: var(--s-4) var(--s-5);
+  border-top: 1px solid var(--hairline);
+  display: flex; align-items: center; justify-content: space-between;
+  color: var(--text-muted); font-size: 13px;
+  flex-wrap: wrap; gap: var(--s-2);
+}

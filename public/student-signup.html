@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create Student Account · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body>
+  <div class="auth">
+    <aside class="auth-aside">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div style="position:relative;z-index:1">
+        <div class="brand">
+          <div class="brand-mark">T</div>
+          <div>
+            <div class="brand-name">TwinEval AI</div>
+            <div class="brand-sub">Create your account</div>
+          </div>
+        </div>
+        <div class="mt-6 quote">
+          Join a workspace built to help you <span>learn from every evaluation</span> — with explainable scoring and personalised feedback.
+        </div>
+      </div>
+      <div class="row gap-2 text-sm text-muted" style="position:relative;z-index:1">
+        <span class="badge">Free for students</span>
+        <span class="badge">No credit card</span>
+      </div>
+    </aside>
+
+    <section class="auth-form">
+      <form class="auth-card anim-fadeup" onsubmit="event.preventDefault(); TwinEval.showSuccess('Account Created Successfully', 'student-login.html');">
+        <div>
+          <h1 class="auth-title">Create your student account</h1>
+          <p class="auth-sub mt-2">A few details to personalise your workspace.</p>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="field">
+            <label class="label">Full name</label>
+            <input class="input" placeholder="Jane Doe" required />
+          </div>
+          <div class="field">
+            <label class="label">Email</label>
+            <input class="input" type="email" placeholder="you@college.edu" required />
+          </div>
+          <div class="field">
+            <label class="label">College</label>
+            <input class="input" placeholder="Institute name" required />
+          </div>
+          <div class="field">
+            <label class="label">Department</label>
+            <input class="input" placeholder="e.g. Computer Science" required />
+          </div>
+          <div class="field">
+            <label class="label">Year</label>
+            <select class="select" required>
+              <option value="">Select year</option>
+              <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label">Roll number</label>
+            <input class="input" placeholder="e.g. 21CS042" required />
+          </div>
+          <div class="field">
+            <label class="label">Password</label>
+            <input class="input" type="password" placeholder="Min 8 characters" required />
+          </div>
+          <div class="field">
+            <label class="label">Confirm password</label>
+            <input class="input" type="password" placeholder="Re-enter password" required />
+          </div>
+        </div>
+
+        <label class="checkbox"><input type="checkbox" required /> I agree to the Terms of Service and Privacy Policy.</label>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Create Account</button>
+
+        <p class="text-sm text-muted" style="text-align:center;margin:0">
+          Already have an account? <a href="student-login.html">Sign in</a>
+        </p>
+      </form>
+    </section>
+  </div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upload Answer Sheet · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+  <style>
+    .dropzone {
+      border: 2px dashed var(--hairline-strong);
+      border-radius: var(--r-xl);
+      padding: 56px 24px;
+      text-align: center;
+      background:
+        radial-gradient(600px 300px at 50% -20%, rgba(74,126,243,0.18), transparent 60%),
+        var(--surface-glass);
+      transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+    }
+    .dropzone.drag { border-color: var(--brand-400); background: rgba(74,126,243,0.08); }
+    .dz-ico {
+      width: 72px; height: 72px; border-radius: 20px; margin: 0 auto 16px;
+      background: var(--grad-primary-soft); color: var(--brand-200);
+      display: grid; place-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="shell" data-role="student" data-active="upload" data-title="Upload Answer Sheet"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Upload an answer sheet</h1>
+        <div class="sub">PDF, image or typed text. TwinEval AI handles the rest.</div>
+      </div>
+      <a href="student-dashboard.html" class="btn btn-ghost">Cancel</a>
+    </div>
+
+    <div class="grid" style="grid-template-columns: 1.4fr 1fr; gap: var(--s-3);">
+      <div class="card">
+        <label class="dropzone" id="dz">
+          <input type="file" id="file" hidden accept="image/*,.pdf" />
+          <div class="dz-ico">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M6 10l6-6 6 6"/><path d="M4 20h16"/></svg>
+          </div>
+          <div class="h3">Drop your answer sheet here</div>
+          <div class="text-sm text-muted mt-2">or click to browse — PDF, PNG, JPG up to 25MB</div>
+          <div class="mt-4"><span class="btn btn-primary">Choose file</span></div>
+          <div id="fileName" class="text-sm text-muted mt-3"></div>
+        </label>
+
+        <div class="grid grid-2 mt-4">
+          <div class="field">
+            <label class="label">Subject / Course</label>
+            <input class="input" placeholder="e.g. Data Structures" />
+          </div>
+          <div class="field">
+            <label class="label">Exam / Assignment</label>
+            <input class="input" placeholder="e.g. Mid-term 2" />
+          </div>
+        </div>
+        <div class="field mt-3">
+          <label class="label">Notes for the AI (optional)</label>
+          <textarea class="textarea" placeholder="Anything you'd like the evaluator to consider…"></textarea>
+        </div>
+
+        <div class="row between mt-4">
+          <label class="checkbox"><input type="checkbox" checked /> Run Bloom's taxonomy analysis</label>
+          <a href="processing.html" class="btn btn-primary">
+            Start evaluation
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="h3">What we'll analyse</h2>
+        <div class="text-sm text-muted">A transparent, seven-stage pipeline.</div>
+        <ul style="list-style:none;padding:0;margin:16px 0 0;display:flex;flex-direction:column;gap:10px">
+          <li class="row gap-2"><span class="badge badge-brand">01</span> OCR — extract text from handwriting or scans</li>
+          <li class="row gap-2"><span class="badge badge-brand">02</span> Semantic analysis of every answer</li>
+          <li class="row gap-2"><span class="badge badge-brand">03</span> Rubric alignment with model answers</li>
+          <li class="row gap-2"><span class="badge badge-brand">04</span> Bloom's taxonomy classification</li>
+          <li class="row gap-2"><span class="badge badge-brand">05</span> Concept-level feedback</li>
+          <li class="row gap-2"><span class="badge badge-brand">06</span> Personalised analytics</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    (function(){
+      var dz = document.getElementById("dz");
+      var file = document.getElementById("file");
+      var name = document.getElementById("fileName");
+      dz.addEventListener("dragover", function(e){ e.preventDefault(); dz.classList.add("drag"); });
+      dz.addEventListener("dragleave", function(){ dz.classList.remove("drag"); });
+      dz.addEventListener("drop", function(e){
+        e.preventDefault(); dz.classList.remove("drag");
+        if (e.dataTransfer.files[0]) { file.files = e.dataTransfer.files; name.textContent = "Selected: " + e.dataTransfer.files[0].name; }
+      });
+      file.addEventListener("change", function(){ if (file.files[0]) name.textContent = "Selected: " + file.files[0].name; });
+    })();
+  </script>
+</body>
+</html>

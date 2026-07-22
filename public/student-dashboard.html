@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Dashboard · TwinEval AI</title>
+  <link rel="stylesheet" href="assets/css/design-system.css" />
+  <link rel="stylesheet" href="assets/css/overlays.css" />
+</head>
+<body>
+  <div id="shell" data-role="student" data-active="dashboard" data-title="Dashboard"></div>
+
+  <main class="page">
+    <div class="page-header anim-fadeup">
+      <div>
+        <h1 class="h1">Welcome to TwinEval AI</h1>
+        <div class="sub">Your personalised evaluation workspace. Everything begins with your first answer sheet.</div>
+      </div>
+      <a href="upload.html" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        Upload Answer Sheet
+      </a>
+    </div>
+
+    <!-- Stat cards (empty state) -->
+    <section class="grid grid-4">
+      <div class="card anim-fadeup delay-1">
+        <div class="card-sub">Evaluations completed</div>
+        <div class="stat mt-2">—</div>
+        <div class="text-sm text-muted mt-2">No evaluations yet</div>
+      </div>
+      <div class="card anim-fadeup delay-2">
+        <div class="card-sub">Average score</div>
+        <div class="stat mt-2">—</div>
+        <div class="text-sm text-muted mt-2">Available after your first evaluation</div>
+      </div>
+      <div class="card anim-fadeup delay-3">
+        <div class="card-sub">Concepts mastered</div>
+        <div class="stat mt-2">—</div>
+        <div class="text-sm text-muted mt-2">We'll track these automatically</div>
+      </div>
+      <div class="card anim-fadeup delay-4">
+        <div class="card-sub">Bloom's coverage</div>
+        <div class="stat mt-2">—</div>
+        <div class="text-sm text-muted mt-2">Remember → Create</div>
+      </div>
+    </section>
+
+    <!-- Recent + Insights -->
+    <section class="grid" style="grid-template-columns: 1.5fr 1fr; gap: var(--s-3);">
+      <div class="card">
+        <div class="row between mb-3">
+          <div>
+            <h2 class="h3">Recent evaluations</h2>
+            <div class="text-sm text-muted">Your latest submissions will appear here.</div>
+          </div>
+          <a class="btn btn-sm btn-ghost" href="upload.html">New submission</a>
+        </div>
+        <div class="empty">
+          <div class="empty-illustration">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6"/></svg>
+          </div>
+          <h3>No evaluations available yet.</h3>
+          <p>Upload your first answer sheet to see AI-graded results, rubric breakdowns, and Bloom-level insights here.</p>
+          <a href="upload.html" class="btn btn-primary mt-3">Upload your first answer sheet</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="h3">Getting started</h2>
+        <div class="text-sm text-muted">Three steps to your first evaluation.</div>
+        <ol style="padding-left:18px; margin-top:16px; display:flex; flex-direction:column; gap:12px;">
+          <li><strong>Upload</strong> a scanned or typed answer sheet.</li>
+          <li>Our AI runs <strong>OCR → semantic → rubric → Bloom</strong> analysis.</li>
+          <li>Review your <strong>evaluation, feedback and analytics</strong>.</li>
+        </ol>
+        <a href="upload.html" class="btn btn-outline btn-block mt-4">Start now</a>
+      </div>
+    </section>
+
+    <!-- Skill radar placeholder -->
+    <section class="grid grid-2">
+      <div class="card">
+        <h2 class="h3">Performance analytics</h2>
+        <div class="text-sm text-muted">Charts and trends will appear after your first evaluation.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-6M22 20H2"/></svg>
+          </div>
+          <h3>Your performance analytics will appear after your first evaluation.</h3>
+          <p>We'll surface strengths, weak concepts and growth over time.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="h3">Bloom's taxonomy coverage</h2>
+        <div class="text-sm text-muted">Understand which cognitive levels you've engaged with.</div>
+        <div class="empty mt-3">
+          <div class="empty-illustration">🌱</div>
+          <h3>No Bloom data yet.</h3>
+          <p>Levels will unlock as evaluations are analysed.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/shell.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
