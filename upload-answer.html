@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Answer Sheet - TwinEval AI</title>
+  <meta name="description" content="Upload student handwritten or typed answer sheets for AI evaluation.">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/upload.css">
+</head>
+<body class="upload-page">
+
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="brand-name">TwinEval <span>AI</span></div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">MAIN MENU</div>
+        <a href="student-dashboard.html" class="nav-link">
+          <i class="fa-solid fa-chart-pie nav-icon"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="upload-answer.html" class="nav-link active">
+          <i class="fa-solid fa-cloud-arrow-up nav-icon"></i>
+          <span>Upload Answer</span>
+        </a>
+        <a href="results.html" class="nav-link">
+          <i class="fa-solid fa-square-poll-vertical nav-icon"></i>
+          <span>Evaluation Results</span>
+        </a>
+        <a href="feedback.html" class="nav-link">
+          <i class="fa-solid fa-comment-dots nav-icon"></i>
+          <span>AI Feedback</span>
+        </a>
+        <a href="analytics.html" class="nav-link">
+          <i class="fa-solid fa-chart-line nav-icon"></i>
+          <span>Analytics</span>
+        </a>
+
+        <div class="nav-section-title margin-top-md">ACCOUNT</div>
+        <a href="profile.html" class="nav-link">
+          <i class="fa-solid fa-user-gear nav-icon"></i>
+          <span>Profile Settings</span>
+        </a>
+        <a href="settings.html" class="nav-link">
+          <i class="fa-solid fa-sliders nav-icon"></i>
+          <span>System Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="theme-toggle-btn">
+          <i class="fa-solid fa-moon"></i>
+          <span>Toggle Theme</span>
+        </button>
+        <a href="#" class="logout-trigger" id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="top-header">
+        <button type="button" class="mobile-nav-toggle btn btn-icon btn-ghost" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-muted);">AI Evaluation Workspace</div>
+
+        <div class="header-actions">
+          <button type="button" class="theme-toggle-btn btn btn-icon btn-ghost" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <div class="user-profile-pill">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--bg-secondary);border:1.5px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="user-info">
+              <div class="user-name user-name-display">{{student_name}}</div>
+              <div class="user-role">Student</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem;">
+          <div>
+            <h1 style="font-size: 1.65rem; font-weight: 800; margin-bottom: 0.35rem; letter-spacing: -0.02em;">Upload Answer Sheet Document</h1>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Select your exam answer paper in PDF, PNG, or JPG format for automated AI evaluation.</p>
+          </div>
+
+          <!-- Drag & Drop Upload Zone -->
+          <div class="dropzone-container" id="uploadDropzone">
+            <div class="dropzone-icon">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <h3 class="dropzone-title">Drag &amp; Drop Answer Sheet Here</h3>
+            <p class="dropzone-subtitle">or click anywhere to browse files from your computer</p>
+            <span class="badge badge-primary"><i class="fa-solid fa-file-pdf"></i> PDF, PNG, JPG up to 25MB</span>
+            <input type="file" id="answerFileInput" accept=".pdf,.png,.jpg,.jpeg" style="display: none;">
+          </div>
+
+          <!-- Selected File Preview Card (Hidden by default until file selected) -->
+          <div class="selected-file-card" id="selectedFileCard" style="display: none;">
+            <div class="file-info-group">
+              <div class="file-icon-badge">
+                <i class="fa-solid fa-file-pdf"></i>
+              </div>
+              <div>
+                <div class="file-name" id="selectedFileName" style="font-weight: 700; color: var(--text-main);">--</div>
+                <div class="file-meta" id="selectedFileSize" style="font-size: 0.8rem; color: var(--text-muted);">-- KB • PDF Document</div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span class="badge badge-success"><i class="fa-solid fa-check"></i> File Validated</span>
+              <button type="button" class="btn btn-icon btn-ghost" id="removeFileBtn" title="Remove file" style="color: var(--danger);">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Pre-flight AI Readiness Checks -->
+          <div>
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">AI Pipeline Readiness Checks</h3>
+            <div class="readiness-grid">
+              <div class="readiness-card">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                  <div style="font-weight: 600; font-size: 0.9rem;">OCR Engine Ready</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Vision Transformer Model v4</div>
+                </div>
+              </div>
+
+              <div class="readiness-card">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                  <div style="font-weight: 600; font-size: 0.9rem;">Semantic Graph Ready</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Embedding Pipeline v2</div>
+                </div>
+              </div>
+
+              <div class="readiness-card">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                  <div style="font-weight: 600; font-size: 0.9rem;">Rubric Matrix Ready</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Master Syllabus Loaded</div>
+                </div>
+              </div>
+
+              <div class="readiness-card">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                  <div style="font-weight: 600; font-size: 0.9rem;">Bloom Engine Ready</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Cognitive Depth Scanner</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Start AI Evaluation Action Footer -->
+          <div class="glass-card padding-lg" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--accent-light); color: var(--accent-hover); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                <i class="fa-solid fa-stopwatch"></i>
+              </div>
+              <div>
+                <div style="font-weight: 600; font-size: 0.95rem;">Estimated Evaluation Time</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Approx. 12 seconds per paper</div>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-md" id="startEvaluationBtn">
+              <span>Start AI Evaluation</span>
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/upload.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(localStorage.getItem('twineval_user') || '{}');
+      document.querySelectorAll('.user-name-display').forEach(el => el.textContent = user.name || '{{student_name}}');
+    });
+  </script>
+</body>
+</html>

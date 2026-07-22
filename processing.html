@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Processing Engine - TwinEval AI</title>
+  <meta name="description" content="Real-time AI pipeline executing OCR, Semantic Matching, Rubric Evaluation, and Bloom classification.">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="processing-page">
+
+  <div class="canvas-background">
+    <canvas id="particleCanvas"></canvas>
+  </div>
+
+  <div style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; position: relative; z-index: 10;">
+    
+    <!-- Top Branding -->
+    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;">
+      <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--gradient-primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: var(--shadow-glow);">
+        <i class="fa-solid fa-brain"></i>
+      </div>
+      <div style="font-size: 1.4rem; font-weight: 800;">TwinEval <span style="color: var(--accent);">AI Engine</span></div>
+    </div>
+
+    <!-- Processing Card Container -->
+    <div class="glass-card padding-xl" style="max-width: 840px; width: 100%; border-radius: var(--radius-xl);">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <span class="badge badge-accent margin-bottom-xs" id="processingStatusBadge">
+          <i class="fa-solid fa-sync fa-spin"></i> Executing AI Neural Pipeline
+        </span>
+        <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem;" id="currentStepTitle">Reading PDF &amp; Formatting Document...</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;" id="currentStepSubtitle">Analyzing page structures, diagrams, and handwriting strokes.</p>
+      </div>
+
+      <!-- Main Progress Bar & Counter -->
+      <div style="margin-bottom: 2.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 600;">
+          <span style="color: var(--primary);"><i class="fa-solid fa-microchip"></i> Neural Pipeline Progress</span>
+          <span id="progressPercentageText" style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--accent);">0%</span>
+        </div>
+        <div style="height: 12px; background: var(--bg-secondary); border-radius: var(--radius-full); overflow: hidden; position: relative;">
+          <div id="mainProgressBar" style="width: 0%; height: 100%; background: var(--gradient-primary); border-radius: var(--radius-full); transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+
+      <!-- Process Steps Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem;" id="stepsTimelineGrid">
+        <div class="glass-card padding-sm step-card active" id="step-1" style="display: flex; align-items: center; gap: 0.75rem; border-left: 4px solid var(--primary);">
+          <div class="step-icon" style="width: 32px; height: 32px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 0.85rem;">
+            <i class="fa-solid fa-file-pdf"></i>
+          </div>
+          <div>
+            <div style="font-weight: 600; font-size: 0.85rem;">1. Document OCR</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted);" class="step-state">Processing...</div>
+          </div>
+        </div>
+
+        <div class="glass-card padding-sm step-card" id="step-2" style="display: flex; align-items: center; gap: 0.75rem; border-left: 4px solid var(--border-subtle);">
+          <div class="step-icon" style="width: 32px; height: 32px; border-radius: 50%; background: var(--bg-secondary); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 0.85rem;">
+            <i class="fa-solid fa-diagram-project"></i>
+          </div>
+          <div>
+            <div style="font-weight: 600; font-size: 0.85rem;">2. Semantic Graph</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted);" class="step-state">Queued</div>
+          </div>
+        </div>
+
+        <div class="glass-card padding-sm step-card" id="step-3" style="display: flex; align-items: center; gap: 0.75rem; border-left: 4px solid var(--border-subtle);">
+          <div class="step-icon" style="width: 32px; height: 32px; border-radius: 50%; background: var(--bg-secondary); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 0.85rem;">
+            <i class="fa-solid fa-list-check"></i>
+          </div>
+          <div>
+            <div style="font-weight: 600; font-size: 0.85rem;">3. Rubric Evaluation</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted);" class="step-state">Queued</div>
+          </div>
+        </div>
+
+        <div class="glass-card padding-sm step-card" id="step-4" style="display: flex; align-items: center; gap: 0.75rem; border-left: 4px solid var(--border-subtle);">
+          <div class="step-icon" style="width: 32px; height: 32px; border-radius: 50%; background: var(--bg-secondary); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 0.85rem;">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <div>
+            <div style="font-weight: 600; font-size: 0.85rem;">4. Bloom's Taxonomy</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted);" class="step-state">Queued</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Log Terminal Feed -->
+      <div style="background: #0f172a; border-radius: var(--radius-md); padding: 1.25rem; font-family: var(--font-mono); font-size: 0.8rem; color: #38bdf8; height: 150px; overflow-y: auto;" id="liveLogTerminal">
+        <div>[0.00s] INIT: Neural Engine pipeline initialized.</div>
+      </div>
+
+      <!-- Action Footer (Appears on finish) -->
+      <div style="margin-top: 1.5rem; text-align: center; display: none;" id="completedActions">
+        <a href="results.html" class="btn btn-primary btn-md animate-fade-in">
+          <span>View Evaluation Results</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    const steps = [
+      { id: 1, title: "Reading PDF & Optical Character Recognition", sub: "Converting handwriting strokes to structured text tokens...", progress: 25, log: "[1.20s] OCR: Handwriting extraction completed. 99.4% confidence score." },
+      { id: 2, title: "Semantic Analysis & Concept Mapping", sub: "Comparing student answer embeddings against subject knowledge base...", progress: 50, log: "[2.80s] SEMANTIC: 14 core concepts matched with answer key scheme." },
+      { id: 3, title: "Rubric Criteria & Deduction Calculation", sub: "Applying teacher scoring criteria and evaluating step-by-step logic...", progress: 75, log: "[4.10s] RUBRIC: Question-wise criteria evaluation complete." },
+      { id: 4, title: "Bloom's Taxonomy Classification & Report Generation", sub: "Classifying cognitive depth levels and synthesizing detailed student feedback...", progress: 100, log: "[5.50s] COMPLETE: Evaluation report synthesized successfully." }
+    ];
+
+    let currentIdx = 0;
+    const progressBar = document.getElementById('mainProgressBar');
+    const percentageText = document.getElementById('progressPercentageText');
+    const stepTitle = document.getElementById('currentStepTitle');
+    const stepSub = document.getElementById('currentStepSubtitle');
+    const terminal = document.getElementById('liveLogTerminal');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadedFile = sessionStorage.getItem('uploaded_file_name') || 'answer_sheet_document.pdf';
+      const logLine = document.createElement('div');
+      logLine.textContent = `[0.35s] OCR: Reading answer sheet '${uploadedFile}'...`;
+      terminal.appendChild(logLine);
+      
+      setTimeout(executeNextStep, 800);
+    });
+
+    function executeNextStep() {
+      if (currentIdx >= steps.length) {
+        document.getElementById('processingStatusBadge').innerHTML = `<i class="fa-solid fa-circle-check"></i> AI Evaluation Complete`;
+        document.getElementById('processingStatusBadge').className = 'badge badge-success margin-bottom-xs';
+        document.getElementById('completedActions').style.display = 'block';
+
+        setTimeout(() => {
+          window.location.href = 'results.html';
+        }, 1200);
+        return;
+      }
+
+      const step = steps[currentIdx];
+      progressBar.style.width = `${step.progress}%`;
+      percentageText.textContent = `${step.progress}%`;
+      stepTitle.textContent = step.title;
+      stepSub.textContent = step.sub;
+
+      const logLine = document.createElement('div');
+      logLine.textContent = step.log;
+      terminal.appendChild(logLine);
+      terminal.scrollTop = terminal.scrollHeight;
+
+      // Update step card UI
+      const card = document.getElementById(`step-${step.id}`);
+      if (card) {
+        card.style.borderLeftColor = 'var(--success)';
+        const stateEl = card.querySelector('.step-state');
+        if (stateEl) stateEl.textContent = 'Completed';
+        const iconEl = card.querySelector('.step-icon');
+        if (iconEl) {
+          iconEl.style.background = 'var(--success-light)';
+          iconEl.style.color = 'var(--success)';
+        }
+      }
+
+      currentIdx++;
+      setTimeout(executeNextStep, 1400);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+/* ==========================================================================
+   TEACHER MODULE & REVIEW WORKSPACE STYLES
+   ========================================================================== */
+
+.teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Split-screen Review Workspace */
+.review-workspace {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  height: calc(100vh - 180px);
+  min-height: 600px;
+}
+
+@media (max-width: 1024px) {
+  .review-workspace {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+
+.document-viewer-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.viewer-header {
+  padding: 1rem 1.25rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.viewer-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.viewer-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background: var(--bg-main);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.paper-sheet {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1rem;
+}
+
+.paper-question-tag {
+  display: inline-block;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.ocr-extracted-text {
+  background: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--accent);
+  color: var(--text-main);
+  white-space: pre-wrap;
+}
+
+/* Score Override Panel */
+.override-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+}
+
+.score-comparison-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.score-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.score-box-num {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.score-box-num.teacher-override {
+  color: var(--accent-hover);
+}
+
+.action-bar-floating {
+  position: sticky;
+  bottom: 1.5rem;
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 50;
+}
