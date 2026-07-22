@@ -20,16 +20,16 @@ const { notFoundHandler, globalErrorHandler } = require('./middleware/errorHandl
 
 const app = express();
 
-// Security & Utility Middleware
-app.use(helmet());
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Express Middleware Configuration
+app.use(helmet({ contentSecurityPolicy: false })); // Security Headers
+app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(express.json()); // Parse JSON request bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bodies
+app.use(morgan('dev')); // HTTP Request Logging
 
-// HTTP Request Logger
-if (process.env.NODE_ENV !== 'test') {
-    app.use(morgan('dev'));
-}
+// Serve Frontend Static Files
+app.use(express.static(__dirname));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Root Status Health Check Endpoint
 app.get('/', (req, res) => {

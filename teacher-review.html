@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Review Workspace - TwinEval AI</title>
+  <meta name="description" content="Educator dashboard for reviewing AI paper evaluations, overriding scores, and class analytics.">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/teacher.css">
+</head>
+<body class="teacher-page">
+
+  <div class="app-layout">
+    <!-- Educator Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+        <div class="brand-name">TwinEval <span>Educator</span></div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">TEACHER PORTAL</div>
+        <a href="teacher-dashboard.html" class="nav-link">
+          <i class="fa-solid fa-chart-pie nav-icon"></i>
+          <span>Overview</span>
+        </a>
+        <a href="teacher-upload.html" class="nav-link">
+          <i class="fa-solid fa-file-circle-plus nav-icon"></i>
+          <span>Upload Paper &amp; Rubric</span>
+        </a>
+        <a href="teacher-review.html" class="nav-link active">
+          <i class="fa-solid fa-glasses nav-icon"></i>
+          <span>Review Workspace</span>
+        </a>
+        <a href="teacher-analytics.html" class="nav-link">
+          <i class="fa-solid fa-chart-user nav-icon"></i>
+          <span>Class Analytics</span>
+        </a>
+
+        <div class="nav-section-title margin-top-md">SYSTEM</div>
+        <a href="profile.html" class="nav-link">
+          <i class="fa-solid fa-user-gear nav-icon"></i>
+          <span>Profile Settings</span>
+        </a>
+        <a href="settings.html" class="nav-link">
+          <i class="fa-solid fa-sliders nav-icon"></i>
+          <span>System Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="theme-toggle-btn">
+          <i class="fa-solid fa-moon"></i>
+          <span>Toggle Theme</span>
+        </button>
+        <a href="#" class="logout-trigger" id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="top-header">
+        <button type="button" class="mobile-nav-toggle btn btn-icon btn-ghost" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div style="font-weight: 600; font-size: 0.95rem; color: var(--text-muted); display: flex; align-items: center; gap: 1rem;">
+          <span>Review Workspace</span>
+          <span class="badge badge-primary">Student: <span class="student-name-display">{{student_name}}</span></span>
+        </div>
+
+        <div class="header-actions">
+          <button type="button" class="theme-toggle-btn btn btn-icon btn-ghost" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <div class="user-profile-pill">
+            <div style="width:34px;height:34px;border-radius:50%;background:var(--bg-secondary);border:1.5px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="user-info">
+              <div class="user-name user-name-display">{{teacher_name}}</div>
+              <div class="user-role">Educator</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body" style="padding-bottom: 1rem;">
+        
+        <!-- Split Screen Workspace Container -->
+        <div class="review-workspace">
+          
+          <!-- Left Panel: Answer Sheet & OCR Document Viewer -->
+          <div class="glass-card document-viewer-card">
+            <div class="viewer-header">
+              <div class="viewer-title">
+                <i class="fa-solid fa-eye" style="color: var(--primary);"></i>
+                <span>OCR Extracted Answer Sheet View</span>
+              </div>
+              <span class="badge badge-accent"><i class="fa-solid fa-bolt"></i> Vision OCR 99.4%</span>
+            </div>
+
+            <div class="viewer-content">
+              <!-- Q1 Paper Sheet Box -->
+              <div class="paper-sheet">
+                <div class="paper-question-tag">Q1. Explain AVL Tree balancing rotations with diagrams &amp; proofs. [10 Marks]</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">[Extracted Student Answer Text &amp; Formulae Layer]:</div>
+                <div class="ocr-extracted-text">
+                  "For an AVL tree node N, Balance Factor BF(N) = Height(LeftSubtree) - Height(RightSubtree).
+                  When BF(N) &gt; 1 and insertion occurs in Left child's Right subtree, a Left-Right (LR) double rotation is required.
+
+                  Step 1: Perform Left Rotation on left child (N.left).
+                  Step 2: Perform Right Rotation on root node N.
+                  Time Complexity for single/double rotation is O(1) pointer updates."
+                </div>
+              </div>
+
+              <!-- Q2 Paper Sheet Box -->
+              <div class="paper-sheet">
+                <div class="paper-question-tag">Q2. Implement Graph BFS traversal algorithm. [10 Marks]</div>
+                <div class="ocr-extracted-text">
+                  "void BFS(int startNode) {
+                    Queue q;
+                    q.push(startNode);
+                    while(!q.empty()) {
+                      int curr = q.pop();
+                      print(curr);
+                      for(int neighbor : adj[curr]) {
+                        q.push(neighbor); // [AI NOTE: Visited check missing]
+                      }
+                    }
+                  }"
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Panel: AI Score Breakdown & Score Override Controls -->
+          <div class="glass-card document-viewer-card" style="background: var(--bg-card);">
+            <div class="viewer-header">
+              <div class="viewer-title">
+                <i class="fa-solid fa-sliders" style="color: var(--accent-hover);"></i>
+                <span>AI Score vs Teacher Adjustment</span>
+              </div>
+              <span class="badge badge-success"><i class="fa-solid fa-circle-check"></i> AI Score: 88%</span>
+            </div>
+
+            <div style="padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.25rem;">
+              
+              <!-- Score Comparison Box -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div style="background: var(--primary-light); border: 1px solid var(--primary); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                  <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">AI CALCULATED SCORE</div>
+                  <div style="font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.1;">88 / 100</div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">98.4% Confidence</div>
+                </div>
+
+                <div style="background: var(--accent-light); border: 1px solid var(--accent); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                  <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">TEACHER FINAL SCORE</div>
+                  <div style="font-size: 2rem; font-weight: 800; color: var(--accent-hover); line-height: 1.1;" id="finalCalculatedScore">88%</div>
+                  <div style="font-size: 0.75rem; color: var(--accent-hover); margin-top: 2px;">Adjusted Real-time</div>
+                </div>
+              </div>
+
+              <!-- Interactive Score Override Slider -->
+              <div class="glass-card padding-md">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                  <label for="teacherScoreSlider" style="font-weight: 700; font-size: 0.9rem;">Override Overall Score</label>
+                  <span style="font-weight: 800; color: var(--primary); font-size: 1.1rem;" id="teacherScoreDisplay">88 / 100</span>
+                </div>
+                <input type="range" id="teacherScoreSlider" min="0" max="100" value="88" style="width: 100%; height: 8px; border-radius: 4px; accent-color: var(--primary); cursor: pointer;">
+              </div>
+
+              <!-- Teacher Comments & Feedback Textarea -->
+              <div class="form-group">
+                <label for="teacherComments" class="form-label">Teacher Review Comments</label>
+                <textarea id="teacherComments" class="form-input" rows="4" style="resize: vertical;" placeholder="Add comments for the student...">Great understanding of AVL rotations. Note missing visited check in BFS queue logic.</textarea>
+              </div>
+
+              <!-- Action Buttons -->
+              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button type="button" class="btn btn-primary btn-md" id="approveSubmissionBtn" style="flex: 1;">
+                  <i class="fa-solid fa-circle-check"></i> Approve &amp; Finalize
+                </button>
+                <button type="button" class="btn btn-ghost btn-md" id="rejectSubmissionBtn" style="color: var(--warning); border: 1px solid var(--warning);">
+                  <i class="fa-solid fa-rotate-left"></i> Re-Evaluate AI
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/teacher.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(localStorage.getItem('twineval_user') || '{}');
+      document.querySelectorAll('.user-name-display').forEach(el => el.textContent = user.name || '{{teacher_name}}');
+      
+      // Try to load a student name from evaluations or default
+      const studentNameDisplay = document.querySelector('.student-name-display');
+      if (studentNameDisplay) {
+        studentNameDisplay.textContent = '{{student_name}}';
+      }
+    });
+  </script>
+</body>
+</html>

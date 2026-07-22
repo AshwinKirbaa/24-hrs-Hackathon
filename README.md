@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TwinEval AI - Student Evaluation & AI Analytics Platform Backend
 
 ![TwinEval AI Banner](https://img.shields.io/badge/TwinEval_AI-Production_Ready-blue?style=for-the-badge&logo=node.js)
@@ -157,3 +158,6 @@ For complete payload details, status codes, and JSON response examples, see [doc
 ## 🧪 Postman Collection
 
 Import `docs/Postman_Collection.json` directly into Postman to instantly test all authentication, student, evaluation, learning plan, analytics, and AI endpoints!
+=======
+# 24-hrs-Hackathon
+>>>>>>> origin/alen

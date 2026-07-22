@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - TwinEval AI</title>
+  <meta name="description" content="Student assessment portal for TwinEval AI answer sheet evaluation platform.">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/student.css">
+</head>
+<body class="student-page">
+
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="brand-name">TwinEval <span>AI</span></div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">MAIN MENU</div>
+        <a href="student-dashboard.html" class="nav-link active">
+          <i class="fa-solid fa-chart-pie nav-icon"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="upload-answer.html" class="nav-link">
+          <i class="fa-solid fa-cloud-arrow-up nav-icon"></i>
+          <span>Upload Answer</span>
+        </a>
+        <a href="results.html" class="nav-link">
+          <i class="fa-solid fa-square-poll-vertical nav-icon"></i>
+          <span>Evaluation Results</span>
+        </a>
+        <a href="feedback.html" class="nav-link">
+          <i class="fa-solid fa-comment-dots nav-icon"></i>
+          <span>AI Feedback</span>
+        </a>
+        <a href="analytics.html" class="nav-link">
+          <i class="fa-solid fa-chart-line nav-icon"></i>
+          <span>Analytics</span>
+        </a>
+
+        <div class="nav-section-title margin-top-md">ACCOUNT</div>
+        <a href="profile.html" class="nav-link">
+          <i class="fa-solid fa-user-gear nav-icon"></i>
+          <span>Profile Settings</span>
+        </a>
+        <a href="settings.html" class="nav-link">
+          <i class="fa-solid fa-sliders nav-icon"></i>
+          <span>System Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="theme-toggle-btn" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+          <span>Toggle Theme</span>
+        </button>
+        <a href="#" class="logout-trigger" id="logoutBtn">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navbar -->
+      <header class="top-header">
+        <button type="button" class="mobile-nav-toggle btn btn-icon btn-ghost" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="header-search">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="assignmentSearchInput" class="search-input" placeholder="Search evaluations or subjects...">
+        </div>
+
+        <div class="header-actions">
+          <button type="button" class="theme-toggle-btn btn btn-icon btn-ghost" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <!-- Notifications Dropdown Trigger -->
+          <div class="dropdown-wrapper" id="notificationsDropdownWrapper">
+            <button type="button" class="btn btn-icon btn-ghost" title="Notifications" id="notificationBtn">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+            <!-- Dropdown Menu -->
+            <div class="glass-card dropdown-menu" id="notificationDropdownMenu" style="display: none; position: absolute; right: 0; top: 110%; width: 280px; padding: 1rem; z-index: 100;">
+              <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem;">Notifications</div>
+              <div style="font-size: 0.85rem; color: var(--text-muted); text-align: center; padding: 1.5rem 0;">No notifications available.</div>
+            </div>
+          </div>
+
+          <!-- Generic Silhouette Profile Avatar -->
+          <div class="user-profile-pill">
+            <div style="width:34px; height:34px; border-radius:50%; background:var(--bg-tertiary, var(--bg-card)); border:1.5px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="user-info">
+              <div class="user-name user-name-display">{{student_name}}</div>
+              <div class="user-role">Student</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- Hero Welcome Banner -->
+        <div class="glass-card welcome-card dashboard-hero">
+          <div style="display:flex; flex-direction:column; gap:1rem; padding: 0.25rem 0;">
+            <span class="badge badge-primary" style="width:fit-content; font-size:0.72rem; letter-spacing:0.06em; padding:0.35rem 0.85rem;"><i class="fa-solid fa-sparkles" style="margin-right:0.35rem;"></i>AI ENGINE ACTIVE</span>
+            <div>
+              <h1 class="welcome-title" style="font-size:2rem; font-weight:800; line-height:1.2; letter-spacing:-0.02em; margin-bottom:0.5rem;">Welcome, <span class="user-name-display" style="background: var(--gradient-primary); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">{{student_name}}</span>!</h1>
+              <p class="welcome-subtitle" style="font-size:0.9rem; color:var(--text-muted); line-height:1.65; max-width:480px; margin:0;">Get started by uploading your handwritten or typed exam answer sheets. The AI Engine will evaluate them against your marking rubrics instantly.</p>
+            </div>
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; padding-top:0.25rem;">
+              <a href="upload-answer.html" class="btn btn-primary btn-md">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Upload Answer Sheet
+              </a>
+              <a href="analytics.html" class="btn btn-secondary btn-md">
+                <i class="fa-solid fa-chart-line"></i> View Trends
+              </a>
+            </div>
+          </div>
+
+          <!-- Empty State overall progress donut placeholder -->
+          <div class="progress-ring-container">
+            <div style="width: 140px; height: 140px; border-radius: 50%; border: 6px dashed var(--border-subtle); display: flex; align-items: center; justify-content: center; color: var(--text-light); flex-direction: column;">
+              <i class="fa-solid fa-chart-pie" style="font-size: 1.5rem; margin-bottom: 0.25rem;"></i>
+              <span style="font-size: 12px; font-weight: 600;">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statistics Grid Cards (Empty States) -->
+        <div class="stats-grid">
+          <div class="glass-card stat-card">
+            <div class="stat-icon primary">
+              <i class="fa-solid fa-file-signature"></i>
+            </div>
+            <div>
+              <div class="stat-value">--</div>
+              <div class="stat-label">Evaluated Papers</div>
+              <div class="stat-trend text-muted">No uploads yet</div>
+            </div>
+          </div>
+
+          <div class="glass-card stat-card">
+            <div class="stat-icon accent">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div>
+              <div class="stat-value">--</div>
+              <div class="stat-label">Average Score</div>
+              <div class="stat-trend text-muted">Waiting for data</div>
+            </div>
+          </div>
+
+          <div class="glass-card stat-card">
+            <div class="stat-icon success">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div>
+              <div class="stat-value">--</div>
+              <div class="stat-label">High Score</div>
+              <div class="stat-trend text-muted">No grade recorded</div>
+            </div>
+          </div>
+
+          <div class="glass-card stat-card">
+            <div class="stat-icon warning">
+              <i class="fa-solid fa-hourglass-half"></i>
+            </div>
+            <div>
+              <div class="stat-value">--</div>
+              <div class="stat-label">Pending Review</div>
+              <div class="stat-trend text-muted">All caught up</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Dashboard Split Layout -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+          <!-- Left Column: Subject Performance Empty Chart & Evaluations Table -->
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <!-- Performance Chart Empty State -->
+            <div class="glass-card padding-lg">
+              <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem;">Subject Performance Analysis</h3>
+              
+              <div class="empty-state-container" style="min-height: 220px;">
+                <div class="empty-state-icon" style="font-size: 2.2rem; margin-bottom: 1rem;">
+                  <i class="fa-solid fa-chart-column"></i>
+                </div>
+                <div class="empty-state-title">No evaluation data available.</div>
+                <div class="empty-state-text" style="font-size: 0.85rem; max-width: 380px; margin-bottom: 0;">Performance data will appear here after evaluations.</div>
+              </div>
+            </div>
+
+            <!-- Recent Evaluations Table Empty State -->
+            <div class="glass-card padding-lg">
+              <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem;">Recent Answer Sheet Evaluations</h3>
+              
+              <div class="empty-state-container">
+                <div class="empty-state-icon">
+                  <i class="fa-solid fa-file-invoice"></i>
+                </div>
+                <div class="empty-state-title">No answer sheets evaluated yet.</div>
+                <div class="empty-state-text">Upload an answer sheet to begin AI evaluation.</div>
+                <a href="upload-answer.html" class="btn btn-primary btn-md">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Upload Answer Sheet
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Quick Actions & Pipeline Waiting Panel -->
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <!-- AI Pipeline Waiting Panel -->
+            <div class="glass-card padding-lg">
+              <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">AI Engine Pipeline</h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">System status parameters</p>
+              
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <div class="pipeline-step-item">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fa-solid fa-eye" style="color: var(--primary); font-size: 0.95rem;"></i>
+                    <span style="font-weight: 600; font-size: 0.85rem;">OCR Engine</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Waiting</span>
+                    <span class="status-indicator-dot waiting"></span>
+                  </div>
+                </div>
+
+                <div class="pipeline-step-item">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fa-solid fa-diagram-project" style="color: var(--accent-hover); font-size: 0.95rem;"></i>
+                    <span style="font-weight: 600; font-size: 0.85rem;">Semantic Analysis</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Waiting</span>
+                    <span class="status-indicator-dot waiting"></span>
+                  </div>
+                </div>
+
+                <div class="pipeline-step-item">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fa-solid fa-layer-group" style="color: var(--success); font-size: 0.95rem;"></i>
+                    <span style="font-weight: 600; font-size: 0.85rem;">Bloom Classification</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Waiting</span>
+                    <span class="status-indicator-dot waiting"></span>
+                  </div>
+                </div>
+
+                <div class="pipeline-step-item">
+                  <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fa-solid fa-comment-dots" style="color: var(--warning); font-size: 0.95rem;"></i>
+                    <span style="font-weight: 600; font-size: 0.85rem;">Feedback Engine</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Waiting</span>
+                    <span class="status-indicator-dot waiting"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Action Shortcut Buttons Grid -->
+            <div class="glass-card padding-lg">
+              <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem;">Quick Actions</h3>
+              <div class="quick-actions-list">
+                <a href="upload-answer.html" class="quick-action-btn">
+                  <i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary);"></i>
+                  <span>Upload Answer Sheet</span>
+                </a>
+                <a href="results.html" class="quick-action-btn">
+                  <i class="fa-solid fa-square-poll-vertical" style="color: var(--accent-hover);"></i>
+                  <span>View Results</span>
+                </a>
+                <a href="feedback.html" class="quick-action-btn">
+                  <i class="fa-solid fa-comment-dots" style="color: var(--success);"></i>
+                  <span>AI Feedback</span>
+                </a>
+                <a href="analytics.html" class="quick-action-btn">
+                  <i class="fa-solid fa-chart-line" style="color: var(--primary-hover);"></i>
+                  <span>Analytics</span>
+                </a>
+                <a href="profile.html" class="quick-action-btn">
+                  <i class="fa-solid fa-user-gear" style="color: var(--text-muted);"></i>
+                  <span>Profile Settings</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Dropdown notification toggle
+    const notifyBtn = document.getElementById('notificationBtn');
+    const dropdownMenu = document.getElementById('notificationDropdownMenu');
+    if (notifyBtn && dropdownMenu) {
+      notifyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const display = dropdownMenu.style.display;
+        dropdownMenu.style.display = display === 'none' ? 'block' : 'none';
+      });
+      document.addEventListener('click', () => {
+        dropdownMenu.style.display = 'none';
+      });
+    }
+
+    // Set placeholder student name if no logged in session exists
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = localStorage.getItem('twineval_user');
+      if (!user) {
+        document.querySelectorAll('.user-name-display').forEach(el => el.textContent = '{{student_name}}');
+      } else {
+        const parsed = JSON.parse(user);
+        document.querySelectorAll('.user-name-display').forEach(el => el.textContent = parsed.name || '{{student_name}}');
+      }
+    });
+  </script>
+</body>
+</html>
