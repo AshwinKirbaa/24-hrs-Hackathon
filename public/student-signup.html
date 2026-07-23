@@ -31,7 +31,7 @@
     </aside>
 
     <section class="auth-form">
-      <form class="auth-card anim-fadeup" onsubmit="event.preventDefault(); TwinEval.showSuccess('Account Created Successfully', 'student-login.html');">
+      <form id="signupForm" class="auth-card anim-fadeup">
         <div>
           <h1 class="auth-title">Create your student account</h1>
           <p class="auth-sub mt-2">A few details to personalise your workspace.</p>
@@ -39,39 +39,42 @@
 
         <div class="grid grid-2">
           <div class="field">
-            <label class="label">Full name</label>
-            <input class="input" placeholder="Jane Doe" required />
+            <label class="label" for="full_name">Full name</label>
+            <input id="full_name" class="input" placeholder="Jane Doe" required />
           </div>
           <div class="field">
-            <label class="label">Email</label>
-            <input class="input" type="email" placeholder="you@college.edu" required />
+            <label class="label" for="email">Email</label>
+            <input id="email" class="input" type="email" placeholder="you@college.edu" required />
           </div>
           <div class="field">
-            <label class="label">College</label>
-            <input class="input" placeholder="Institute name" required />
+            <label class="label" for="college">College</label>
+            <input id="college" class="input" placeholder="Institute name" required />
           </div>
           <div class="field">
-            <label class="label">Department</label>
-            <input class="input" placeholder="e.g. Computer Science" required />
+            <label class="label" for="department">Department</label>
+            <input id="department" class="input" placeholder="e.g. Computer Science" required />
           </div>
           <div class="field">
-            <label class="label">Year</label>
-            <select class="select" required>
+            <label class="label" for="year">Year</label>
+            <select id="year" class="select" required>
               <option value="">Select year</option>
-              <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option>
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="4th Year">4th Year</option>
             </select>
           </div>
           <div class="field">
-            <label class="label">Roll number</label>
-            <input class="input" placeholder="e.g. 21CS042" required />
+            <label class="label" for="roll_number">Roll number</label>
+            <input id="roll_number" class="input" placeholder="e.g. 21CS042" required />
           </div>
           <div class="field">
-            <label class="label">Password</label>
-            <input class="input" type="password" placeholder="Min 8 characters" required />
+            <label class="label" for="password">Password</label>
+            <input id="password" class="input" type="password" placeholder="Min 8 characters" required />
           </div>
           <div class="field">
-            <label class="label">Confirm password</label>
-            <input class="input" type="password" placeholder="Re-enter password" required />
+            <label class="label" for="confirm_password">Confirm password</label>
+            <input id="confirm_password" class="input" type="password" placeholder="Re-enter password" required />
           </div>
         </div>
 
@@ -86,5 +89,49 @@
     </section>
   </div>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm_password").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      const payload = {
+        full_name: document.getElementById("full_name").value,
+        email: document.getElementById("email").value,
+        college: document.getElementById("college").value,
+        department: document.getElementById("department").value,
+        year: document.getElementById("year").value,
+        roll_number: document.getElementById("roll_number").value,
+        password: password
+      };
+
+      const apiUrl = (window.TwinEval && window.TwinEval.getApiUrl) ? window.TwinEval.getApiUrl("/api/auth/student/signup") : "/api/auth/student/signup";
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        if (data.success) {
+          localStorage.setItem("token", data.data.token);
+          localStorage.setItem("user", JSON.stringify(data.data.user));
+          TwinEval.showSuccess("Account Created Successfully", "student-login.html");
+        } else {
+          alert(data.message || "Failed to create account.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Unable to connect to server.");
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,13 +1,50 @@
 /* =============================================================
-   TwinEval AI — shared frontend interactions
-   - Button ripple
-   - Sidebar toggle
-   - Simple auth-flow overlay (loading messages)
-   - Nav navigation helpers
+   TwinEval AI — shared frontend interactions & API helper
+   - Dynamic API URL resolution
+   - Theme toggle (Dark / Light Mode)
+   - Ripple effect
+   - Mobile sidebar toggle
+   - Auth loading & success overlays
+   - Session logout helper
    ============================================================= */
 
 (function () {
   "use strict";
+
+  window.TwinEval = window.TwinEval || {};
+
+  // ---- Dynamic API URL Resolver ----
+  window.TwinEval.getApiUrl = function (path) {
+    if (!path.startsWith('/')) path = '/' + path;
+    if (window.location.protocol === 'file:') {
+      return 'http://localhost:5000' + path;
+    }
+    return window.location.origin + path;
+  };
+
+  // ---- Theme Toggle Helper (Dark / Light Mode) ----
+  window.toggleTheme = function () {
+    const isLight = document.body.classList.toggle('light-theme');
+    localStorage.setItem('twineval_theme', isLight ? 'light' : 'dark');
+  };
+
+  // Initialize stored theme
+  const savedTheme = localStorage.getItem('twineval_theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+  }
+
+  // ---- Session Logout Helper ----
+  window.TwinEval.logout = function () {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    if (window.TwinEvalApp && window.TwinEvalApp.showToast) {
+      window.TwinEvalApp.showToast("Logged Out", "Redirecting to landing page...", "info");
+    }
+    setTimeout(function () {
+      window.location.href = "landing.html";
+    }, 500);
+  };
 
   // ---- Ripple effect on .btn ----
   document.addEventListener("click", function (e) {
@@ -31,7 +68,6 @@
   };
 
   // ---- Auth loading overlay ----
-  window.TwinEval = window.TwinEval || {};
   window.TwinEval.runAuthFlow = function (steps, redirectTo) {
     var overlay = document.createElement("div");
     overlay.className = "auth-overlay";

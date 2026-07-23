@@ -24,7 +24,8 @@ export const submitAnswerSheet = asyncHandler(async (req, res) => {
   const studentId = req.user.id;
   const { subject, exam_title, assignment_id, notes, run_blooms } = req.body;
 
-  const fileUrl = req.file ? `/uploads/${req.file.filename}` : null;
+  const uploadedFile = req.file || (req.files && req.files.length > 0 ? req.files[0] : null);
+  const fileUrl = uploadedFile ? `/uploads/${uploadedFile.filename}` : null;
 
   const submissionId = await createSubmission({
     student_id: studentId,
@@ -57,11 +58,7 @@ export const getSubmissionStatus = asyncHandler(async (req, res) => {
   const submission = await getSubmissionById(submissionId);
 
   if (!submission) {
-    return res.status(404).json({
-      success: false,
-      message: 'Submission not found.',
-      errors: ['Invalid submission ID'],
-    });
+    return res.status(404).json({ success: false, message: 'Submission not found.' });
   }
 
   res.status(200).json({

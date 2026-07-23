@@ -1,5 +1,16 @@
 import { query } from '../config/db.js';
 
+const parseJsonIfNeeded = (val) => {
+  if (typeof val === 'string') {
+    try {
+      return JSON.parse(val);
+    } catch (e) {
+      return [];
+    }
+  }
+  return val || [];
+};
+
 export const saveEvaluation = async ({ submission_id, overall_score, blooms_level, concepts_detected, items, feedback }) => {
   // 1. Insert core evaluation record
   const result = await query(
@@ -54,7 +65,7 @@ export const getEvaluationBySubmissionId = async (submissionId) => {
   if (evaluations.length === 0) return null;
 
   const evaluation = evaluations[0];
-  evaluation.concepts_detected = JSON.parse(evaluation.concepts_detected || '[]');
+  evaluation.concepts_detected = parseJsonIfNeeded(evaluation.concepts_detected);
 
   evaluation.items = await query('SELECT * FROM evaluation_items WHERE evaluation_id = ? ORDER BY question_number ASC', [evaluation.id]);
 
@@ -62,10 +73,10 @@ export const getEvaluationBySubmissionId = async (submissionId) => {
   if (feedbackRows.length > 0) {
     const f = feedbackRows[0];
     evaluation.feedback = {
-      strengths: JSON.parse(f.strengths || '[]'),
-      improvements: JSON.parse(f.improvements || '[]'),
-      next_steps: JSON.parse(f.next_steps || '[]'),
-      concept_map: JSON.parse(f.concept_map || '[]'),
+      strengths: parseJsonIfNeeded(f.strengths),
+      improvements: parseJsonIfNeeded(f.improvements),
+      next_steps: parseJsonIfNeeded(f.next_steps),
+      concept_map: parseJsonIfNeeded(f.concept_map),
     };
   } else {
     evaluation.feedback = { strengths: [], improvements: [], next_steps: [], concept_map: [] };
@@ -81,9 +92,9 @@ export const getFeedbackByEvaluationId = async (evaluationId) => {
   }
   const f = feedbackRows[0];
   return {
-    strengths: JSON.parse(f.strengths || '[]'),
-    improvements: JSON.parse(f.improvements || '[]'),
-    next_steps: JSON.parse(f.next_steps || '[]'),
-    concept_map: JSON.parse(f.concept_map || '[]'),
+    strengths: parseJsonIfNeeded(f.strengths),
+    improvements: parseJsonIfNeeded(f.improvements),
+    next_steps: parseJsonIfNeeded(f.next_steps),
+    concept_map: parseJsonIfNeeded(f.concept_map),
   };
 };

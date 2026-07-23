@@ -76,9 +76,11 @@
       var i = 0;
       function tick(){
         if (i > 0) { pipes[i-1].classList.remove("active"); pipes[i-1].classList.add("done"); pipes[i-1].querySelector(".spin").hidden = true; pipes[i-1].querySelector(".status").textContent = "Completed"; }
-        if (i >= pipes.length) {
           bar.style.width = "100%"; label.textContent = "Finalising…";
-          setTimeout(function(){ window.location.href = "evaluation-result.html"; }, 900);
+          var urlParams = new URLSearchParams(window.location.search);
+          var subId = urlParams.get("id") || localStorage.getItem("twineval_submission_id");
+          var targetUrl = (subId && subId !== "undefined") ? "evaluation-result.html?id=" + subId : "evaluation-result.html";
+          setTimeout(function(){ window.location.href = targetUrl; }, 900);
           return;
         }
         pipes[i].classList.add("active");

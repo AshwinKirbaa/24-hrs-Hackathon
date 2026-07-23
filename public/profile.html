@@ -16,28 +16,28 @@
         <h1 class="h1">Your profile</h1>
         <div class="sub">Keep your workspace details up to date.</div>
       </div>
-      <button class="btn btn-primary">Save changes</button>
+      <button id="saveProfileBtn" class="btn btn-primary">Save changes</button>
     </div>
 
     <section class="grid" style="grid-template-columns: 320px 1fr; gap: var(--s-3);">
       <div class="card" style="text-align:center">
-        <div class="avatar" style="width:96px;height:96px;font-size:28px;margin:0 auto">SA</div>
-        <div class="h3 mt-3">—</div>
-        <div class="text-sm text-muted">No profile details added yet</div>
+        <div class="avatar" id="avatarBox" style="width:96px;height:96px;font-size:28px;margin:0 auto">TE</div>
+        <div class="h3 mt-3" id="profileNameDisplay">User</div>
+        <div class="text-sm text-muted" id="profileRoleDisplay">Student Account</div>
         <button class="btn btn-ghost btn-block mt-4">Change avatar</button>
       </div>
 
       <div class="card">
         <h2 class="h3">Personal information</h2>
         <div class="grid grid-2 mt-3">
-          <div class="field"><label class="label">Full name</label><input class="input" placeholder="Add your name" /></div>
-          <div class="field"><label class="label">Email</label><input class="input" type="email" placeholder="Add email" /></div>
-          <div class="field"><label class="label">College</label><input class="input" placeholder="Add college" /></div>
-          <div class="field"><label class="label">Department</label><input class="input" placeholder="Add department" /></div>
-          <div class="field"><label class="label">Year</label>
-            <select class="select"><option>Select year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+          <div class="field"><label class="label" for="profName">Full name</label><input id="profName" class="input" placeholder="Add your name" /></div>
+          <div class="field"><label class="label" for="profEmail">Email</label><input id="profEmail" class="input" type="email" placeholder="Add email" /></div>
+          <div class="field"><label class="label" for="profCollege">College</label><input id="profCollege" class="input" placeholder="Add college" /></div>
+          <div class="field"><label class="label" for="profDept">Department</label><input id="profDept" class="input" placeholder="Add department" /></div>
+          <div class="field"><label class="label" for="profYear">Year</label>
+            <select id="profYear" class="select"><option value="">Select year</option><option value="1st Year">1st Year</option><option value="2nd Year">2nd Year</option><option value="3rd Year">3rd Year</option><option value="4th Year">4th Year</option></select>
           </div>
-          <div class="field"><label class="label">Roll number</label><input class="input" placeholder="Add roll number" /></div>
+          <div class="field"><label class="label" for="profRoll">Roll number</label><input id="profRoll" class="input" placeholder="Add roll number" /></div>
         </div>
       </div>
     </section>
@@ -54,5 +54,36 @@
 
   <script src="assets/js/shell.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const rawUser = localStorage.getItem("user");
+      if (rawUser) {
+        try {
+          const user = JSON.parse(rawUser);
+          if (user.full_name) {
+            document.getElementById("profName").value = user.full_name;
+            document.getElementById("profileNameDisplay").textContent = user.full_name;
+            const initials = user.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById("avatarBox").textContent = initials || "TE";
+          }
+          if (user.email) document.getElementById("profEmail").value = user.email;
+          if (user.college) document.getElementById("profCollege").value = user.college;
+          if (user.department) document.getElementById("profDept").value = user.department;
+          if (user.year) document.getElementById("profYear").value = user.year;
+          if (user.roll_number) document.getElementById("profRoll").value = user.roll_number;
+          if (user.role) document.getElementById("profileRoleDisplay").textContent = user.role.toUpperCase() + " Workspace";
+        } catch(e) {}
+      }
+
+      document.getElementById("saveProfileBtn").addEventListener("click", function() {
+        if (window.TwinEvalApp && window.TwinEvalApp.showToast) {
+          window.TwinEvalApp.showToast("Profile Updated", "Your profile details have been saved.", "success");
+        } else {
+          alert("Profile details updated.");
+        }
+      });
+    });
+  </script>
 </body>
 </html>

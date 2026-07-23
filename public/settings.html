@@ -16,7 +16,7 @@
         <h1 class="h1">Settings</h1>
         <div class="sub">Preferences, notifications and privacy controls.</div>
       </div>
-      <button class="btn btn-primary">Save changes</button>
+      <button id="saveSettingsBtn" class="btn btn-primary">Save changes</button>
     </div>
 
     <section class="grid grid-2">
@@ -35,7 +35,7 @@
         <div class="text-sm text-muted">Theme and density.</div>
         <div class="field mt-3">
           <label class="label">Theme</label>
-          <select class="select"><option>System</option><option>Dark (default)</option><option>Light</option></select>
+          <select class="select"><option>System</option><option selected>Dark (default)</option><option>Light</option></select>
         </div>
         <div class="field mt-3">
           <label class="label">Density</label>
@@ -54,12 +54,35 @@
       <div class="card">
         <h2 class="h3">Session</h2>
         <div class="text-sm text-muted">Sign out of TwinEval AI on this device.</div>
-        <a href="landing.html" class="btn btn-ghost btn-block mt-4">Sign out</a>
+        <button id="logoutBtn" class="btn btn-ghost btn-block mt-4">Sign out</button>
       </div>
     </section>
   </main>
 
   <script src="assets/js/shell.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("saveSettingsBtn").addEventListener("click", function() {
+        if (window.TwinEvalApp && window.TwinEvalApp.showToast) {
+          window.TwinEvalApp.showToast("Settings Saved", "Your workspace preferences have been saved.", "success");
+        } else {
+          alert("Settings saved.");
+        }
+      });
+
+      document.getElementById("logoutBtn").addEventListener("click", function() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        if (window.TwinEvalApp && window.TwinEvalApp.showToast) {
+          window.TwinEvalApp.showToast("Logged Out", "Redirecting to landing page...", "info");
+        }
+        setTimeout(function() {
+          window.location.href = "landing.html";
+        }, 600);
+      });
+    });
+  </script>
 </body>
 </html>

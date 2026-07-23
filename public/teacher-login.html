@@ -39,7 +39,7 @@
     </aside>
 
     <section class="auth-form">
-      <form class="auth-card anim-fadeup" onsubmit="event.preventDefault(); TwinEval.runAuthFlow(['Authenticating Faculty...','Loading Evaluation Workspace...','Preparing Teacher Dashboard...'], 'teacher-dashboard.html');">
+      <form id="teacherLoginForm" class="auth-card anim-fadeup">
         <div>
           <h1 class="auth-title">Faculty sign in</h1>
           <p class="auth-sub mt-2">Access your evaluation workspace and review queues.</p>
@@ -71,5 +71,38 @@
     </section>
   </div>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script>
+    document.getElementById("teacherLoginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const apiUrl = (window.TwinEval && window.TwinEval.getApiUrl) ? window.TwinEval.getApiUrl("/api/auth/teacher/login") : "/api/auth/teacher/login";
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          localStorage.setItem("token", data.data.token);
+          localStorage.setItem("user", JSON.stringify(data.data.user || data.data));
+          TwinEval.runAuthFlow(
+            ['Authenticating Faculty...', 'Loading Evaluation Workspace...', 'Preparing Teacher Dashboard...'],
+            'teacher-dashboard.html'
+          );
+        } else {
+          alert(data.message || "Invalid faculty credentials.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Unable to connect to server.");
+      }
+    });
+  </script>
 </body>
 </html>

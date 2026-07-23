@@ -16,6 +16,7 @@
         radial-gradient(600px 300px at 50% -20%, rgba(74,126,243,0.18), transparent 60%),
         var(--surface-glass);
       transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+      cursor: pointer;
     }
     .dropzone.drag { border-color: var(--brand-400); background: rgba(74,126,243,0.08); }
     .dz-ico {
@@ -52,25 +53,25 @@
 
         <div class="grid grid-2 mt-4">
           <div class="field">
-            <label class="label">Subject / Course</label>
-            <input class="input" placeholder="e.g. Data Structures" />
+            <label class="label" for="subjectInput">Subject / Course</label>
+            <input id="subjectInput" class="input" placeholder="e.g. Data Structures" />
           </div>
           <div class="field">
-            <label class="label">Exam / Assignment</label>
-            <input class="input" placeholder="e.g. Mid-term 2" />
+            <label class="label" for="examInput">Exam / Assignment</label>
+            <input id="examInput" class="input" placeholder="e.g. Mid-term 2" />
           </div>
         </div>
         <div class="field mt-3">
-          <label class="label">Notes for the AI (optional)</label>
-          <textarea class="textarea" placeholder="Anything you'd like the evaluator to consider…"></textarea>
+          <label class="label" for="notesInput">Notes for the AI (optional)</label>
+          <textarea id="notesInput" class="textarea" placeholder="Anything you'd like the evaluator to consider…"></textarea>
         </div>
 
         <div class="row between mt-4">
-          <label class="checkbox"><input type="checkbox" checked /> Run Bloom's taxonomy analysis</label>
-          <a href="processing.html" class="btn btn-primary">
+          <label class="checkbox"><input type="checkbox" id="bloomsCheck" checked /> Run Bloom's taxonomy analysis</label>
+          <button id="startEvaluationBtn" type="button" class="btn btn-primary">
             Start evaluation
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </a>
+          </button>
         </div>
       </div>
 
@@ -91,19 +92,45 @@
 
   <script src="assets/js/shell.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/upload.js"></script>
   <script>
-    (function(){
-      var dz = document.getElementById("dz");
-      var file = document.getElementById("file");
-      var name = document.getElementById("fileName");
-      dz.addEventListener("dragover", function(e){ e.preventDefault(); dz.classList.add("drag"); });
-      dz.addEventListener("dragleave", function(){ dz.classList.remove("drag"); });
-      dz.addEventListener("drop", function(e){
-        e.preventDefault(); dz.classList.remove("drag");
-        if (e.dataTransfer.files[0]) { file.files = e.dataTransfer.files; name.textContent = "Selected: " + e.dataTransfer.files[0].name; }
-      });
-      file.addEventListener("change", function(){ if (file.files[0]) name.textContent = "Selected: " + file.files[0].name; });
-    })();
+    document.getElementById("startEvaluationBtn").addEventListener("click", async function () {
+      const fileInput = document.getElementById("file");
+      const token = localStorage.getItem("token");
+
+      if (fileInput.files.length > 0 && token) {
+        const formData = new FormData();
+        formData.append("answer_sheet", fileInput.files[0]);
+        formData.append("subject", document.getElementById("subjectInput").value || "Data Structures");
+        formData.append("exam_title", document.getElementById("examInput").value || "Mid-term 2");
+        formData.append("notes", document.getElementById("notesInput").value || "");
+        formData.append("run_blooms", document.getElementById("bloomsCheck").checked);
+
+        const apiUrl = (window.TwinEval && window.TwinEval.getApiUrl) ? window.TwinEval.getApiUrl("/api/student/submissions") : "/api/student/submissions";
+
+        try {
+          const res = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Authorization": "Bearer " + token },
+            body: formData
+          });
+          const data = await res.json();
+          if (data.success && data.data) {
+            const subId = data.data.submissionId || data.data.submission_id || data.data.id;
+            if (subId) {
+              localStorage.setItem("twineval_submission_id", subId);
+              window.location.href = "processing.html?id=" + subId;
+              return;
+            }
+          }
+        } catch(e) {
+          console.error("Upload API Error:", e);
+        }
+      }
+
+      window.location.href = "processing.html";
+    });
   </script>
 </body>
 </html>

@@ -64,7 +64,17 @@
     : '<span class="badge badge-brand">Student</span>';
 
   var brandSub = role === "teacher" ? "Faculty Workspace" : "Student Workspace";
+  
   var initials = role === "teacher" ? "FT" : "SA";
+  try {
+    var rawUser = localStorage.getItem("user");
+    if (rawUser) {
+      var u = JSON.parse(rawUser);
+      if (u.full_name) {
+        initials = u.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+      }
+    }
+  } catch(e) {}
 
   shell.outerHTML =
     '<aside class="sidebar' + (role === "teacher" ? " theme-teacher" : "") + '">' +
@@ -92,17 +102,24 @@
     '    <div class="search">' + icons.search + '<input placeholder="Search evaluations, students, rubrics…" /></div>' +
     '    <div class="row gap-2">' +
     '      <button class="btn btn-sm btn-ghost" aria-label="Notifications" style="height:38px;padding:0 10px">' + icons.bell + '</button>' +
-    '      <a href="landing.html" class="btn btn-sm btn-ghost" title="Sign out">Sign out</a>' +
+    '      <a href="landing.html" id="topbarSignoutBtn" class="btn btn-sm btn-ghost" title="Sign out">Sign out</a>' +
     '      <div class="avatar" title="Account">' + initials + '</div>' +
     '    </div>' +
     '  </header>' +
     '  <div id="page-slot"></div>' +
     '</div>';
 
-  // Move the existing <main class="page"> into the shell
   var page = document.querySelector("main.page");
   var slot = document.getElementById("page-slot");
   if (page && slot) slot.replaceWith(page);
 
   document.body.classList.add("app");
+
+  var signoutBtn = document.getElementById("topbarSignoutBtn");
+  if (signoutBtn) {
+    signoutBtn.addEventListener("click", function (e) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    });
+  }
 })();

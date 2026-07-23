@@ -15,6 +15,7 @@ import studentRoutes from './routes/studentRoutes.js';
 import teacherRoutes from './routes/teacherRoutes.js';
 import profileRoutes from './routes/profileRoutes.js';
 import settingsRoutes from './routes/settingsRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,7 +24,15 @@ const app = express();
 
 // Security & Logging Middleware
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors({ origin: '*', credentials: true }));
+
+// Production CORS: Dynamic origin reflection ensures credentials: true works seamlessly without browser policy errors
+app.use(cors({
+  origin: (origin, callback) => {
+    callback(null, true);
+  },
+  credentials: true,
+}));
+
 app.use(morgan('combined', {
   stream: {
     write: (message) => logger.info(message.trim()),
@@ -44,6 +53,7 @@ app.use('/api/student', studentRoutes);
 app.use('/api/teacher', teacherRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Root fallback
 app.get('/', (req, res) => {

@@ -19,8 +19,8 @@ router.use(authorizeRoles('student'));
 // GET /api/student/dashboard
 router.get('/dashboard', getStudentDashboard);
 
-// POST /api/student/submissions (Multer upload)
-router.post('/submissions', upload.single('file'), submitAnswerSheet);
+// POST /api/student/submissions (Multer upload accepting any file field)
+router.post('/submissions', upload.any(), submitAnswerSheet);
 
 // GET /api/student/submissions/:id/status
 router.get('/submissions/:id/status', getSubmissionStatus);
