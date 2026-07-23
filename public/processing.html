@@ -12,6 +12,7 @@
       display: grid; grid-template-columns: 44px 1fr auto; align-items:center; gap: 16px;
       padding: 16px; border-radius: var(--r-md);
       background: var(--surface-glass); border: 1px solid var(--hairline);
+      transition: all 0.3s ease;
     }
     .pipe.active { border-color: var(--brand-400); box-shadow: 0 0 0 4px rgba(74,126,243,0.12); }
     .pipe .n { width:36px; height:36px; border-radius:10px; background: var(--grad-primary-soft); color: var(--brand-200); display:grid; place-items:center; font-weight:600; }
@@ -45,7 +46,7 @@
           <div class="pipe" data-i="4"><div class="n">05</div><div><div>Feedback generation</div><div class="status">Queued</div></div><div class="spin" hidden></div></div>
         </div>
 
-        <div class="progress mt-4"><span id="bar" style="width:5%"></span></div>
+        <div class="progress mt-4"><span id="bar" style="width:5%; transition: width 0.3s ease-out;"></span></div>
         <div class="row between mt-2">
           <div class="text-sm text-muted" id="stageLabel">Preparing…</div>
           <a class="btn btn-sm btn-ghost" href="student-dashboard.html">Run in background</a>
@@ -75,12 +76,19 @@
       var label = document.getElementById("stageLabel");
       var i = 0;
       function tick(){
-        if (i > 0) { pipes[i-1].classList.remove("active"); pipes[i-1].classList.add("done"); pipes[i-1].querySelector(".spin").hidden = true; pipes[i-1].querySelector(".status").textContent = "Completed"; }
-          bar.style.width = "100%"; label.textContent = "Finalising…";
+        if (i > 0) {
+          pipes[i-1].classList.remove("active");
+          pipes[i-1].classList.add("done");
+          pipes[i-1].querySelector(".spin").hidden = true;
+          pipes[i-1].querySelector(".status").textContent = "Completed";
+        }
+        if (i >= pipes.length) {
+          bar.style.width = "100%";
+          label.textContent = "Finalising…";
           var urlParams = new URLSearchParams(window.location.search);
           var subId = urlParams.get("id") || localStorage.getItem("twineval_submission_id");
           var targetUrl = (subId && subId !== "undefined") ? "evaluation-result.html?id=" + subId : "evaluation-result.html";
-          setTimeout(function(){ window.location.href = targetUrl; }, 900);
+          setTimeout(function(){ window.location.href = targetUrl; }, 300);
           return;
         }
         pipes[i].classList.add("active");
@@ -89,9 +97,9 @@
         label.textContent = pipes[i].querySelector("div > div").textContent;
         bar.style.width = ((i+1)/pipes.length * 100) + "%";
         i++;
-        setTimeout(tick, 1400);
+        setTimeout(tick, 350);
       }
-      setTimeout(tick, 600);
+      setTimeout(tick, 200);
     })();
   </script>
 </body>

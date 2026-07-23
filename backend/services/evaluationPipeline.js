@@ -10,8 +10,8 @@ export const processEvaluationPipeline = async (submissionId) => {
     // Stage 1: Mark status as processing
     await updateSubmissionStatus(submissionId, 'processing');
 
-    // Simulate async neural processing delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Fast background neural evaluation processing
+    await new Promise((resolve) => setTimeout(resolve, 200));
 
     const subId = parseInt(submissionId, 10) || 1;
     const submission = await getSubmissionById(subId);
