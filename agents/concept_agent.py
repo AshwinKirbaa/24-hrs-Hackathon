@@ -1,5 +1,6 @@
 import json
 import re
+from pathlib import Path
 
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -10,7 +11,8 @@ class ConceptAgent:
     def __init__(self):
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
 
-        with open("dataset/concepts.json", "r") as file:
+        dataset_path = Path(__file__).parent.parent / "dataset" / "concepts.json"
+        with open(dataset_path, "r", encoding="utf-8") as file:
             self.data = json.load(file)
 
     def check_concepts(self, topic, student_answer):
@@ -33,6 +35,9 @@ class ConceptAgent:
             for s in re.split(r"[.!?]\s*", student_answer)
             if s.strip()
         ]
+
+        if not sentences:
+            return [], expected
 
         sentence_embeddings = self.model.encode(sentences)
 

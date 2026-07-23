@@ -1,6 +1,15 @@
+import sys
+
+
 class ReportAgent:
 
     def generate(self, marks, found, missing, confidence):
+
+        if hasattr(sys.stdout, "reconfigure"):
+            try:
+                sys.stdout.reconfigure(encoding="utf-8")
+            except Exception:
+                pass
 
         print("\n========== AI PAPER EVALUATION REPORT ==========\n")
 
@@ -23,21 +32,21 @@ class ReportAgent:
         print("\nCorrect Concepts")
 
         for concept in found:
-            print(f"✓ {concept}")
+            print(f"[+] {concept}")
 
         print("\nMissing Concepts")
 
         if missing:
             for concept in missing:
-                print(f"✗ {concept}")
+                print(f"[-] {concept}")
         else:
-            print("None 🎉")
+            print("None")
 
         print("\nReasons")
 
         if missing:
             for concept in missing:
-                print(f"• Missing {concept}.")
+                print(f"[*] Missing {concept}.")
         else:
             print("No missing concepts.")
 

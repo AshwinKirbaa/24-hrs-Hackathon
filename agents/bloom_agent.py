@@ -1,10 +1,12 @@
 import json
+from pathlib import Path
 
 
 class BloomAgent:
 
     def __init__(self):
-        with open("dataset/bloom_levels.json", "r") as file:
+        dataset_path = Path(__file__).parent.parent / "dataset" / "bloom_levels.json"
+        with open(dataset_path, "r", encoding="utf-8") as file:
             self.levels = json.load(file)
 
     def analyze(self, student_answer):
@@ -27,8 +29,8 @@ class BloomAgent:
             matched_keywords[level] = matched
 
         # Find the best Bloom level
-        best_level = max(scores, key=scores.get)
-        best_score = scores[best_level]
+        best_level = max(scores, key=scores.get) if scores else "Remember"
+        best_score = scores.get(best_level, 0)
 
         total_matches = sum(scores.values())
 
@@ -51,6 +53,6 @@ class BloomAgent:
             "level": best_level,
             "confidence": confidence,
             "scores": scores,
-            "matched": matched_keywords[best_level],
-            "reason": reasons[best_level]
+            "matched": matched_keywords.get(best_level, []),
+            "reason": reasons.get(best_level, "Analysis complete.")
         }

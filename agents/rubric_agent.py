@@ -1,10 +1,12 @@
 import json
+from pathlib import Path
 
 
 class RubricAgent:
 
     def __init__(self):
-        with open("dataset/concepts.json", "r") as file:
+        dataset_path = Path(__file__).parent.parent / "dataset" / "concepts.json"
+        with open(dataset_path, "r", encoding="utf-8") as file:
             self.data = json.load(file)
 
     def evaluate(self, topic, found, missing, student_answer):
@@ -32,7 +34,7 @@ class RubricAgent:
         # -----------------------------
         # Advantages Marks (2)
         # -----------------------------
-        advantages = self.data[topic]["advantages"]
+        advantages = self.data.get(topic, {}).get("advantages", [])
 
         count = 0
 
@@ -40,7 +42,10 @@ class RubricAgent:
             if item.lower() in student_answer.lower():
                 count += 1
 
-        marks["Advantages"] = round((count / len(advantages)) * 2, 2)
+        if advantages:
+            marks["Advantages"] = round((count / len(advantages)) * 2, 2)
+        else:
+            marks["Advantages"] = 0
 
         # -----------------------------
         # Conclusion Marks (2)

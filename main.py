@@ -1,4 +1,12 @@
+import sys
 import time
+
+# Ensure UTF-8 stdout on Windows terminals
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 from agents.intelligence_agent import IntelligenceAgent
 from agents.concept_agent import ConceptAgent
@@ -109,7 +117,7 @@ print("----------------")
 
 if bloom_result["matched"]:
     for word in bloom_result["matched"]:
-        print(f"✓ {word}")
+        print(f"[+] {word}")
 else:
     print("None")
 
@@ -131,7 +139,7 @@ print("\nStrengths")
 print("----------")
 if feedback_result["strengths"]:
     for item in feedback_result["strengths"]:
-        print(f"✓ {item}")
+        print(f"[+] {item}")
 else:
     print("None")
 
@@ -139,7 +147,7 @@ print("\nAreas to Improve")
 print("----------------")
 if feedback_result["improvements"]:
     for item in feedback_result["improvements"]:
-        print(f"• {item}")
+        print(f"[*] {item}")
 else:
     print("None")
 
@@ -147,7 +155,7 @@ print("\nSuggestions")
 print("-----------")
 if feedback_result["suggestions"]:
     for item in feedback_result["suggestions"]:
-        print(f"• {item}")
+        print(f"[*] {item}")
 else:
     print("None")
 
